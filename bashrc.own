@@ -4,12 +4,17 @@
 #   . ~/bashrc.own
 # fi
 
+export http_proxy=http://child-prc.intel.com:913
+export https_proxy=http://child-prc.intel.com:913
 
 # turn off bash bell
 bind 'set bell-style none'
 
 export PATH=/usr/bin:/home/lijimin1/.local/bin:$PATH
+
+# title and prompt
 if [ "$TERM" = xterm ]; then
+# putty 
 TITLEBAR='\[\033]0;\u@\h \w\007\]'
 else
 TITLEBAR=""
