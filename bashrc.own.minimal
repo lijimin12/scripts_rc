@@ -1,0 +1,24 @@
+# minimal bashrc add-ons
+# if [ -f ~/bashrc.own ]; then
+#   . ~/bashrc.own
+# fi
+
+
+export http_proxy=http://child-prc.intel.com:913
+export https_proxy=http://child-prc.intel.com:913
+
+
+if [ "$TERM" = xterm ]; then
+# putty goes here
+# \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
+TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
+fi
+export PS1="${TITLEBAR}[\[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
+export PROMPT_DIRTRIM=2
+
+export HISTTIMEFORMAT="%F %T "
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias sudo='sudo -E'
+alias clr="clear && printf '\033[3J'"

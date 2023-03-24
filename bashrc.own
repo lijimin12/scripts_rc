@@ -35,6 +35,7 @@ alias a="cd ~/acrn-work"
 alias hv="cd ~/acrn-work/acrn-hypervisor"
 # acrn-kernel
 alias ak="cd ~/acrn-work/acrn-kernel"
+# preserve environment
 alias sudo="sudo -E "
 alias al='alias'
 alias v="vim"
