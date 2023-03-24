@@ -14,8 +14,9 @@ export PATH=/usr/bin:/home/lijimin1/.local/bin:$PATH
 
 # title and prompt
 if [ "$TERM" = xterm ]; then
-# putty 
-TITLEBAR='\[\033]0;\u@\h \w\007\]'
+# putty goes here
+# \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
+TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
 else
 TITLEBAR=""
 fi
