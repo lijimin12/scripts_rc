@@ -1,6 +1,14 @@
+[alias]
+    br = branch
+    ci = commit -a
+    st = status
+    co = checkout
+    sw = checkout
+    lg = log --name-status
 [user]
-        email = jimin.li@intel.com
-        name = Jimin Li
+    email = jimin.li@intel.com
+    name = Jimin Li
 [color]
-        ui = auto
-
+    ui = auto
+[http]
+    proxy = http://proxy-prc.intel.com:912

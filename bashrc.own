@@ -17,6 +17,9 @@ if [ "$TERM" = xterm ]; then
 # putty goes here
 # \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
 TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
+fi
+if [ "$TERM" = screen ]; then
+TITLEBAR='\[\033]0;screen \u@\h $(hostname -I) \w\007\]'
 else
 TITLEBAR=""
 fi
