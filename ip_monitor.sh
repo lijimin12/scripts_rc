@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 # monitor ip addres change
+# should be put in ~/bin/ip_monitro.sh
+# crontab -e
+# @reboot sleep 60 && date >> ~/bin/reboot_date.txt && ~/bin/ip_monitor.sh
 
 cd ~/bin
 
