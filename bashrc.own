@@ -13,15 +13,16 @@ bind 'set bell-style none'
 export PATH=/usr/bin:/home/lijimin1/.local/bin:$PATH
 
 # title and prompt
+TITLEBAR=""
 if [ "$TERM" = xterm ]; then
 # putty goes here
-# \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
+# note: if TITLEBAR is empty, then putty will show "IP - PuTTY" as the window title by default
+# note: \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
 TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
 fi
 if [ "$TERM" = screen ]; then
+# screen goes here
 TITLEBAR='\[\033]0;screen \u@\h $(hostname -I) \w\007\]'
-else
-TITLEBAR=""
 fi
 export PS1="${TITLEBAR}[\[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 export PROMPT_DIRTRIM=2
