@@ -22,7 +22,7 @@ TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
 fi
 if [ "$TERM" = screen ]; then
 # screen goes here
-TITLEBAR='\[\033]0;screen \u@\h $(hostname -I) \w\007\]'
+TITLEBAR='\[\033]0;[screen] \u@\h $(hostname -I) \w\007\]'
 fi
 export PS1="${TITLEBAR}[\[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 export PROMPT_DIRTRIM=2
