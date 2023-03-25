@@ -17,6 +17,10 @@ set cin
 set si
 
 "other
+" save
+nnoremap <C-s> :w<CR>
+" quit
 nnoremap <C-d> :q<CR>
+" toggle (line) number
 nnoremap <C-n> :set number!<CR> toggle showing line number
 

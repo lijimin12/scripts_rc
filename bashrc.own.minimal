@@ -18,7 +18,12 @@ export PROMPT_DIRTRIM=2
 
 export HISTTIMEFORMAT="%F %T "
 
+export PATH=~/bin:$PATH
+
 alias ..='cd ..'
 alias ...='cd ../..'
-alias sudo='sudo -E'
+
 alias clr="clear && printf '\033[3J'"
+alias h='history'
+
+alias sudo='sudo -E'
