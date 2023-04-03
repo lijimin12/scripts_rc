@@ -1,8 +1,56 @@
 # ~/bashrc.own
+# make ~/bashrc.own a symbol link to my downloaded repo.
 
 # if [ -f ~/bashrc.own ]; then
 #   . ~/bashrc.own
 # fi
+
+
+# bashrc.own.minimal
+# avoid duplication in bashrc.own and bashrc.own.minimal
+
+export http_proxy="http://child-prc.intel.com:913"
+export https_proxy="http://child-prc.intel.com:913"
+export ftp_proxy="ftp://child-prc.intel.com:913/"
+
+# title and prompt
+TITLEBAR=""
+if [ "$TERM" = xterm ]; then
+# putty goes here
+# note: if TITLEBAR is empty, then putty will show "IP - PuTTY" as the window title by default
+# note: \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
+TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
+fi
+# ubuntu Terminal GUI xterm-256color
+case "$TERM" in
+    xterm*)
+    TITLEBAR='\[\033]0;\u@\h \w\007\]'
+    ;;
+esac
+if [ "$TERM" = screen ]; then
+# screen goes here
+TITLEBAR='\[\033]0;[screen] \u@\h $(hostname -I) \w\007\]'
+fi
+export PS1="${TITLEBAR}[\[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
+export PROMPT_DIRTRIM=2
+
+export HISTTIMEFORMAT="%F %T "
+
+export PATH=~/bin:$PATH
+
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias clr="clear && printf '\033[3J'"
+alias h='history'
+
+alias sudo='sudo -E'
+
+
+if [True] ; then 
+	exit
+fi
+
 
 export http_proxy=http://child-prc.intel.com:913
 export https_proxy=http://child-prc.intel.com:913
@@ -31,14 +79,6 @@ export HISTTIMEFORMAT="%F %T "
 
 export EDITOR='vim'
 
-# wsp - working space
-alias ws="cd ~/wsp"
-alias wh='ws'
-alias e='cd ~/wsp/eci-release'
-alias a="cd ~/acrn-work"
-alias hv="cd ~/acrn-work/acrn-hypervisor"
-# acrn-kernel
-alias ak="cd ~/acrn-work/acrn-kernel"
 # preserve environment
 alias sudo="sudo -E "
 alias al='alias'
@@ -61,9 +101,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias clr="clear && printf '\033[3J'"
 alias gitnp='git --no-pager'
-
 alias virc='vim ~/.bashrc'
-alias sd='sudo'
+alias ll='ls -ahlF'
 # list only .* files and directories
 alias l.='ls -d .*'
 #alias lk='cd ~/wsp/linux_kernel'
@@ -71,20 +110,35 @@ alias lk='cd ~/wsp_nvme0/linux_torvalds'
 alias vv='vimm.py'
 # NOTE: ctl-a + ctl-x to quit picocom
 alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
+# human readable
+alias free='free -h'
 alias df='df -Th'
+# time-stamp
+alias dmesg='dmesg -T'
 
-
+# projects
+# projects alias
+# wsp - working space
+alias ws="cd ~/wsp"
+alias wh='ws'
+alias e='cd ~/wsp/eci-release'
+alias a="cd ~/acrn-work"
+alias hv="cd ~/acrn-work/acrn-hypervisor"
+# acrn-kernel
+alias ak="cd ~/acrn-work/acrn-kernel"
+# project make/build
 # project - acrn
 # make hypervisor
-alias _mkhv='make BOARD=~/acrn-work/MyConfiguration/my_board.board.xml SCENARIO=~/acrn-work/MyConfiguration/scenario.xml'
-alias mkhv='make clean && _mkhv'
+#alias _mkhv='make BOARD=~/acrn-work/MyConfiguration/my_board.board.xml SCENARIO=~/acrn-work/MyConfiguration/scenario.xml'
+#alias mkhv='make clean && _mkhv'
 
 # project ECI
-alias eci3='cd /home/lijimin1/wsp_nvme0/eci-preliminary_alpha_3.0/master/Edge-Controls-for-Industrial/eci-release'
+#alias eci3='cd /home/lijimin1/wsp_nvme0/eci-preliminary_alpha_3.0/master/Edge-Controls-for-Industrial/eci-release'
 
 # project qemu/kvm
-alias qemu='/usr/bin/qemu-system-x86_64 -cpu host -m 3500 -smp 4 --enable-kvm -drive file=~/wsp_nvme0/vm.img'
+#alias qemu='/usr/bin/qemu-system-x86_64 -cpu host -m 3500 -smp 4 --enable-kvm -drive file=~/wsp_nvme0/vm.img'
 
+# cd to certain path by default when login
 #cd /home/lijimin1/wsp_nvme0
 #wh
 
