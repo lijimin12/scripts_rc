@@ -57,8 +57,8 @@ alias sudo='sudo -E'
 
 # if using the minimal mode, skip the rest
 if [True] ; then 
-	echo "using minimal bashrc.own, exit"
-	exit
+	echo "using minimal bashrc.own, return"
+	return
 fi
 
 
