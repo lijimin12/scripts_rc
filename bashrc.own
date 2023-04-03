@@ -56,8 +56,8 @@ alias h='history'
 alias sudo='sudo -E'
 
 # if using the minimal mode, skip the rest
-if [True] ; then 
-	echo "using minimal bashrc.own, return"
+if true ; then 
+	echo "minimal bashrc.own sourced, return"
 	return
 fi
 
