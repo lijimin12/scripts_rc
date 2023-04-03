@@ -44,16 +44,20 @@ export PATH=~/bin:~/.local/bin:$PATH
 
 # go back
 alias b='cd -'
+alias p='pwd'
 alias ..='cd ..'
 alias ...='cd ../..'
 
 alias clr="clear && printf '\033[3J'"
 alias h='history'
 
+# preserve environment
+# alias sudo="sudo -E "
 alias sudo='sudo -E'
 
 # if using the minimal mode, skip the rest
 if [True] ; then 
+	echo "using minimal bashrc.own, exit"
 	exit
 fi
 
@@ -64,12 +68,9 @@ bind 'set bell-style none'
 
 export EDITOR='vim'
 
-# preserve environment
-alias sudo="sudo -E "
 alias al='alias'
 alias v="vim"
 alias vi="vim"
-alias p='pwd'
 alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
 alias g='grep'
 # exlude 'build'
@@ -150,4 +151,4 @@ ff() {
     find ${1} -not -path '*/.*' -not -type d -print
 }
 
-
+echo "standard bashrc.own sourced"
