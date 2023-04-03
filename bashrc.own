@@ -14,6 +14,7 @@ export https_proxy="http://child-prc.intel.com:913"
 export ftp_proxy="ftp://child-prc.intel.com:913/"
 #export http_proxy=http://child-prc.intel.com:913
 #export https_proxy=http://child-prc.intel.com:913
+#export no_proxy='localhost, 127.0.0.1, intel.com, .intel.com'
 
 
 # title and prompt
@@ -40,7 +41,13 @@ export PROMPT_DIRTRIM=2
 
 export HISTTIMEFORMAT="%F %T "
 
-export PATH=~/bin:~/.local/bin:$PATH
+#export PATH=~/bin:~/.local/bin:$PATH
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
 
 # go back
 alias b='cd -'
@@ -67,6 +74,7 @@ fi
 bind 'set bell-style none'
 
 export EDITOR='vim'
+export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
 
 alias al='alias'
 alias v="vim"
