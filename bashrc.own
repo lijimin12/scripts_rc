@@ -12,6 +12,9 @@
 export http_proxy="http://child-prc.intel.com:913"
 export https_proxy="http://child-prc.intel.com:913"
 export ftp_proxy="ftp://child-prc.intel.com:913/"
+#export http_proxy=http://child-prc.intel.com:913
+#export https_proxy=http://child-prc.intel.com:913
+
 
 # title and prompt
 TITLEBAR=""
@@ -34,10 +37,13 @@ fi
 export PS1="${TITLEBAR}[\[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 export PROMPT_DIRTRIM=2
 
+
 export HISTTIMEFORMAT="%F %T "
 
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/.local/bin:$PATH
 
+# go back
+alias b='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
 
@@ -46,36 +52,15 @@ alias h='history'
 
 alias sudo='sudo -E'
 
-
+# if using the minimal mode, skip the rest
 if [True] ; then 
 	exit
 fi
 
 
-export http_proxy=http://child-prc.intel.com:913
-export https_proxy=http://child-prc.intel.com:913
 
 # turn off bash bell
 bind 'set bell-style none'
-
-export PATH=/usr/bin:/home/lijimin1/.local/bin:$PATH
-
-# title and prompt
-TITLEBAR=""
-if [ "$TERM" = xterm ]; then
-# putty goes here
-# note: if TITLEBAR is empty, then putty will show "IP - PuTTY" as the window title by default
-# note: \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
-TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
-fi
-if [ "$TERM" = screen ]; then
-# screen goes here
-TITLEBAR='\[\033]0;[screen] \u@\h $(hostname -I) \w\007\]'
-fi
-export PS1="${TITLEBAR}[\[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
-export PROMPT_DIRTRIM=2
-
-export HISTTIMEFORMAT="%F %T "
 
 export EDITOR='vim'
 
@@ -84,7 +69,6 @@ alias sudo="sudo -E "
 alias al='alias'
 alias v="vim"
 alias vi="vim"
-alias h="history"
 alias p='pwd'
 alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
 alias g='grep'
@@ -95,11 +79,6 @@ alias gnb='grep --exclude-dir="build"'
 alias cg='g -nr --include="*.c" --include="*.S" --include="*.h"'
 # linux kernel source grep = cg + excluding some folders
 alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir="sound" --exclude-dir="fs" --exclude-dir="drivers" --exclude-dir="Documentation" --exclude-dir="mips" '
-# go back
-alias b='cd -'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias clr="clear && printf '\033[3J'"
 alias gitnp='git --no-pager'
 alias virc='vim ~/.bashrc'
 alias ll='ls -ahlF'
