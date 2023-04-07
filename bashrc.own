@@ -62,16 +62,17 @@ alias h='history'
 # alias sudo="sudo -E "
 alias sudo='sudo -E'
 
+
+# turn off bash bell
+bind 'set bell-style none'
+
+
 # if using the minimal mode, skip the rest
 if true ; then 
 	echo "minimal bashrc.own sourced, return"
 	return
 fi
 
-
-
-# turn off bash bell
-bind 'set bell-style none'
 
 export EDITOR='vim'
 export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
@@ -95,12 +96,15 @@ alias ll='ls -ahlF'
 alias l.='ls -d .*'
 #alias lk='cd ~/wsp/linux_kernel'
 alias lk='cd ~/wsp_nvme0/linux_torvalds'
+
 alias vv='vimm.py'
 # NOTE: ctl-a + ctl-x to quit picocom
 alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
+
 # human readable
 alias free='free -h'
 alias df='df -Th'
+alias lsblk='lsblk --fs'
 # time-stamp
 alias dmesg='dmesg -T'
 
