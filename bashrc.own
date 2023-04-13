@@ -57,6 +57,7 @@ alias ...='cd ../..'
 
 alias clr="clear && printf '\033[3J'"
 alias h='history'
+alias v='vim'
 
 # preserve environment
 # alias sudo="sudo -E "
