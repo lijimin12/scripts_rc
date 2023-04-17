@@ -70,7 +70,8 @@ bind 'set bell-style none'
 
 # if using the minimal mode, skip the rest
 if [ $1 = full ] ; then
-    echo "full bashrc.own required"
+    :
+    #echo "full bashrc.own required"
 elif true ; then
 	echo "my github minimal bashrc.own sourced, return"
 	return
@@ -171,4 +172,4 @@ f.xb() {
 }
 
 
-echo "my github standard bashrc.own sourced"
+echo "my github standard/full bashrc.own sourced"
