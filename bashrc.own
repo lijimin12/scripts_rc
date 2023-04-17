@@ -2,8 +2,9 @@
 # make ~/bashrc.own a symbol link to my downloaded repo.
 
 # if [ -f ~/bashrc.own ]; then
-#   . ~/bashrc.own
+#   . ~/bashrc.own [full]
 # fi
+# two modes available: minimal (the default) and standard/full. Can be specified via parameter
 
 
 # bashrc.own.minimal
