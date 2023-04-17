@@ -39,7 +39,10 @@ export PS1="${TITLEBAR}[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 export PROMPT_DIRTRIM=2
 
 
-export HISTTIMEFORMAT="%F %T "
+# export HISTTIMEFORMAT="%F %T "
+# %F means YYYY-MM-DD
+# %y/%m/%d
+export HISTTIMEFORMAT="%m/%d %T "
 
 #export PATH=~/bin:~/.local/bin:$PATH
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
