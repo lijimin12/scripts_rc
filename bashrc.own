@@ -70,7 +70,7 @@ bind 'set bell-style none'
 
 # if using the minimal mode, skip the rest
 if true ; then 
-	echo "minimal bashrc.own sourced, return"
+	echo "my github minimal bashrc.own sourced, return"
 	return
 fi
 
@@ -164,4 +164,4 @@ ff() {
     find ${1} -not -path '*/.*' -not -type d -print
 }
 
-echo "standard bashrc.own sourced"
+echo "my github standard bashrc.own sourced"
