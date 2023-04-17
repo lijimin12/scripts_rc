@@ -71,6 +71,7 @@ bind 'set bell-style none'
 # if using the minimal mode, skip the rest
 if [ $1 = full ] ; then
     #echo "full"
+    ;;
 elif true ; then
 	echo "my github minimal bashrc.own sourced, return"
 	return
