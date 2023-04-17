@@ -163,5 +163,10 @@ f.nf ()
 ff() {
     find ${1} -not -path '*/.*' -not -type d -print
 }
+# find excluding build folder
+f.xb() {
+    find . -path '*/build' -prune -o $* -print
+}
+
 
 echo "my github standard bashrc.own sourced"
