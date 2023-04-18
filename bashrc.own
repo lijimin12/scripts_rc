@@ -102,6 +102,8 @@ alias virc='vim ~/.bashrc'
 alias ll='ls -ahlF'
 # list only .* files and directories
 alias l.='ls -d .*'
+# list only .* files
+alias l.f="ls -dl .* | grep -v '^d' | awk '{print \$9}'"
 #alias lk='cd ~/wsp/linux_kernel'
 alias lk='cd ~/wsp_nvme0/linux_torvalds'
 
