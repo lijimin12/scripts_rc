@@ -6,19 +6,50 @@ import re
 #print(sys.argv)
 #print(sys.argv[0])
 
-help = "Usage: " + __file__ + " filename:line"
+syntax = "Syntax: " + __file__ + " filename:line"
+
+def usage():
+    print(syntax)
+    formats = '''
+    supported formats:
+    filename line
+    filename:line
+    filename:line:
+    filename+line
+    filenameline
+    '''
+    print(formats)
 
 if len(sys.argv) < 2:
-    print(help)
+    usage()
+    sys.exit(0)
+
+if len(sys.argv) == 3:
+    # __file__ filename lineno
+    filename = sys.argv[1]
+    lineno = sys.argv[2]
+    
+    if (not lineno.isdigit()):
+        print("{} should be line number".format(lineno))
+        sys.exit(0)
+    command = "vim " + filename + " +" + lineno
+    #print(command)
+    subprocess.call(command, shell=True)
+    sys.exit(0)
+
+if len(sys.argv) != 2:
+    usage()
     sys.exit(0)
 
 filename_line=sys.argv[1]
 #print(filename_line)
 
+# trim stuff after blank space
 first_blank=filename_line.find(' ')
 if (-1 != first_blank):
     filename_line = filename_line[:first_blank]
 
+# trim suffixing :
 if filename_line[-1] == ':':
     filename_line = filename_line[:-1]
     #filename_line[-1] = ' '
