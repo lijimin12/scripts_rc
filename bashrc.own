@@ -85,6 +85,7 @@ fi
 export EDITOR='vim'
 export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
 
+alias path="printenv PATH | tr ':' '\n'"
 alias al='alias'
 alias v="vim"
 alias vi="vim"
