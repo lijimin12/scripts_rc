@@ -11,9 +11,8 @@ import re
 #print(sys.argv)
 #print(sys.argv[0])
 
-syntax = "Syntax: " + __file__ + " filename:line"
-
 def usage():
+    syntax = "Syntax: " + __file__ + " filename:line"
     print(syntax)
     formats = '''
     supported formats:
@@ -24,6 +23,13 @@ def usage():
     filenameline
     '''
     print(formats)
+    help = '''
+    vv is an alias to vimm.py
+    To view this usage help:
+        vv
+        vv --help or vv -h
+    '''
+    print(help)
 
 if len(sys.argv) < 2:
     usage()
