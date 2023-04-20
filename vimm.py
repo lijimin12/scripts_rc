@@ -46,6 +46,12 @@ if len(sys.argv) != 2:
     usage()
     sys.exit(0)
 
+# hereafter, sys.argv == 2
+
+if (sys.argv[1] == '--help' or sys.argv[1] == '-h'):
+    usage()
+    sys.exit(0)
+
 filename_line=sys.argv[1]
 #print(filename_line)
 
