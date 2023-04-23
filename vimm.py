@@ -4,6 +4,7 @@
 # while default vim command line syntax is 'vim file +line'
 # the intention is to click copy/paste the grep result and open vim to edit it, locating to the certain line
 # the suggested location of this script is ~/bin
+
 import sys, string, os, subprocess
 import re
 
