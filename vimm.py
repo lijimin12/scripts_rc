@@ -6,7 +6,6 @@
 # the suggested location of this script is ~/bin
 
 
-
 import sys, string, os, subprocess
 import re
 
