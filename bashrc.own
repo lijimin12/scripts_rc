@@ -183,3 +183,4 @@ f.xb() {
 mkcd() { mkdir -p "$1" && cd "$1" }
 
 echo "my github standard/full bashrc.own sourced"
+
