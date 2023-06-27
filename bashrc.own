@@ -95,7 +95,7 @@ alias g='grep'
 alias gnb='grep --exclude-dir="build"'
 # grep recursively in c source files
 #alias cg='g -nr --include="*.c" --include="*.h"'
-alias cg='g -nr --include="*.c" --include="*.S" --include="*.h"'
+alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
 # linux kernel source grep = cg + excluding some folders
 # all archs except x86 excluded
 alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
