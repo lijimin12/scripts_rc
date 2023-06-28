@@ -180,7 +180,9 @@ f.xb() {
 }
 
 # alias mkcd='function mkcdf(){ mkdir "$1"; cd "$1"; }; mkcdf'
-mkcd() { mkdir -p "$1" && cd "$1" }
+mkcd() { 
+    mkdir -p "$1" && cd "$1" 
+}
 
 echo "my github standard/full bashrc.own sourced"
 
