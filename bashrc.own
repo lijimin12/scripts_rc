@@ -164,6 +164,7 @@ f.n ()
 {
     find . -name '*'${1}'*' -not -path '*/.*' -print
 }
+alias f='f.n'
 
 # find . -name fully
 f.nf ()
