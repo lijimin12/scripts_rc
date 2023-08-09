@@ -1,4 +1,5 @@
 # scripts
+Jimin-Z8
 Jimin.Li@intel.com my own scripts
 
 .bashrc
