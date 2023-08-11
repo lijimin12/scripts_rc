@@ -5,4 +5,3 @@ Jimin.Li@intel.com my own scripts
 .bashrc
 .vimrc
 等等脚本，有多个拷贝，散落都在多个机器上，很不方便。通过这个github repo方便同步。
-
