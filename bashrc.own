@@ -98,7 +98,7 @@ alias gnb='grep --exclude-dir="build"'
 alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
 # linux kernel source grep = cg + excluding some folders
 # all archs except x86 excluded
-alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
+alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
 alias gitnp='git --no-pager'
 alias virc='vim ~/.bashrc'
 alias ll='ls -ahlF'
