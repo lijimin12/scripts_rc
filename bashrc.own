@@ -186,12 +186,18 @@ mkcd() {
 }
 
 # remove current dir forcely
-rmpwdf() {
+rmpwd() {
     pwd=$(pwd)
     if [ -d ${pwd} ] && [ ! -L ${pwd} ]; then
         cd ..
-        #rmdir -v ${pwd}
-        rm -rfv ${pwd}
+
+        if [ -z "$(ls -A $(pwd))" ]; then
+            echo "remove empty dir"
+            rmdir -v ${pwd}
+        else
+            echo "remove non-empty dir"
+            rm -rfv ${pwd}
+        fi
     fi
 
     if [ -d ${pwd} ] && [ -L ${pwd} ]; then
