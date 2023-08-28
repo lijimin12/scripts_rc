@@ -184,6 +184,11 @@ f.xb() {
 mkcd() { 
     mkdir -p "$1" && cd "$1" 
 }
+# remove current dir
+alias rmpwd='pwd=`pwd` && ! test -L ${pwd} && cd .. && rmdir -v ${pwd} || test -L ${pwd} && echo is link. && cd .. && unlink ${pwd} && echo unlinked. || echo failed'
+# remove current dir forcely
+alias rmpwdf='pwd=`pwd` && ! test -L ${pwd} && cd .. && rm -rfv ${pwd} || test -L ${pwd} && echo is link. && cd .. && unlink ${pwd} && echo unlinked. || echo failed'
+
 
 echo "my github standard/full bashrc.own sourced"
 
