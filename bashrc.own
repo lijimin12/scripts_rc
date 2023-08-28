@@ -185,6 +185,8 @@ mkcd() {
     mkdir -p "$1" && cd "$1" 
 }
 
+alias rmp='pwd=`pwd` && ! test -L "$pwd" && cd .. && rm -rfv "$pwd" || { test -L "$pwd" && cd .. && unlink "${pwd}" && echo unlinked "$pwd". ; }  || echo failed'
+
 # remove current dir forcely
 rmpwd() {
     pwd=$(pwd)
