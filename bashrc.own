@@ -188,22 +188,22 @@ mkcd() {
 # remove current dir forcely
 rmpwd() {
     pwd=$(pwd)
-    if [ -d ${pwd} ] && [ ! -L ${pwd} ]; then
+    if [ -d $pwd ] && [ ! -L $pwd ]; then
         cd ..
 
-        if [ -z "$(ls -A $(pwd))" ]; then
+        if [ -z "$(ls -A $pwd)" ]; then
             echo "remove empty dir"
-            rmdir -v ${pwd}
+            rmdir -v $pwd
         else
             echo "remove non-empty dir"
-            rm -rfv ${pwd}
+            rm -rfv $pwd
         fi
     fi
 
-    if [ -d ${pwd} ] && [ -L ${pwd} ]; then
+    if [ -d $pwd ] && [ -L $pwd ]; then
         cd ..
-        echo "unlink ${pwd}"
-        unlink ${pwd}
+        echo "unlink $pwd"
+        unlink $pwd
     fi
 }
 
