@@ -188,13 +188,13 @@ mkcd() {
 # remove current dir forcely
 rmpwdf() {
     pwd=$(pwd)
-    if [ -d ${pwd} && ! -L ${pwd} ]; then
+    if [ -d ${pwd} ] && [ ! -L ${pwd} ]; then
         cd ..
         #rmdir -v ${pwd}
         rm -rfv ${pwd}
     fi
 
-    if [ -L ${pwd} ]; then
+    if [ -d ${pwd} ] && [ -L ${pwd} ]; then
         cd ..
         echo "unlink ${pwd}"
         unlink ${pwd}
