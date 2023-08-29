@@ -1,3 +1,8 @@
+#
+# in ~/.bashrc for gitbash on windows
+# 	source "C:\codes\Jimin-Z8\scripts\win.bashrc"
+# 	echo "Jimin-Z8\win.bashrc sourced"
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias clr="clear && printf '\033[3J'"
