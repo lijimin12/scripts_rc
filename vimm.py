@@ -4,6 +4,9 @@
 # while default vim command line syntax is 'vim file +line'
 # the intention is to click copy/paste the grep result and open vim to edit it, locating to the certain line
 # the suggested location of this script is ~/bin
+#
+# 2023.8
+# vimm.py has been substituted by editor_wrapper.py
 
 import sys, string, os, subprocess
 import re
@@ -74,11 +77,11 @@ first_semicolon = filename_line.find(':')
 #print(first_semicolon)
 if (-1 != first_semicolon):
     filename = filename_line[:first_semicolon]
-    line = filename_line[first_semicolon+1:]
-    second_semicolon = line.find(':')
+    lineno = filename_line[first_semicolon+1:]
+    second_semicolon = lineno.find(':')
     if (-1 != second_semicolon):
-        line = line[:second_semicolon]
-    command = "vim " + filename + " +" + line
+        lineno = lineno[:second_semicolon]
+    command = "vim " + filename + " +" + lineno
 elif (filename_line[-1:].isdigit()):
     # filename_line has trailing line number
     lineno=re.search(r"(\d+)$", filename_line).group()
