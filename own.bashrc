@@ -210,9 +210,10 @@ rmpwd() {
     fi
 
     if [ -d $pwd ] && [ -L $pwd ]; then
-        cd ..
-        echo "unlink $pwd"
-        unlink $pwd
+        # cd ..
+        # echo "unlink $pwd"
+        # unlink $pwd
+        echo "failed, $pwd is a symbol link"
     fi
 }
 
