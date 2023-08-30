@@ -58,5 +58,7 @@ alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "
 # vs code
 alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" code'
 alias ex='explorer'
-cd /c/x
+
+#cd /c/x
+# use instead "C:\Program Files\Git\git-bash.exe" --cd="C:\x"
 
