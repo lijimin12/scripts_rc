@@ -16,6 +16,11 @@ alias pg='g -nr --include="*.py" '
 # search text files (.txt .md)
 #alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
 
+# word count dos '\r'
+alias wcdos="grep -cU $'\r'"
+# word count tab '\t'
+alias wctab="grep -cU $'\t'"
+
 
 #alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" /c/my /c/codes/Jimin-Z8 /c/x '
 # g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
