@@ -6,7 +6,31 @@
 alias ..='cd ..'
 alias ...='cd ../..'
 alias clr="clear && printf '\033[3J'"
-alias lsize='ls -lrSh'
+
+
+# dir
+alias b='cd -'
+alias p='pwd'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias clr="clear && printf '\033[3J'"
+alias al='alias'
+alias h='history'
+alias v="vim"
+# alias vi="vim"
+alias vv='vimm.py'
+
+# some more ls aliases
+alias ls='ls --color=auto'  # as the default color mode is 'none'
+alias l='ls -F'     # e.g. append "/" to denote folder
+alias ll='ls -AlFh'
+alias la='ls -A'
+# reversely time sorted
+alias llrt='ll -rt'
+# sort by file size
+alias llsize='ll -rSh'
+alias llsz='llsize'
 
 alias grep='grep -I --color=auto'
 alias g='grep -nr -i'
@@ -46,6 +70,37 @@ mgg ()
     g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w ${1} /c/x /c/my/tech /c/codes/Jimin-Z8
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
+
+# copied from own.bashrc
+# dont modify here
+mkcd() { 
+    mkdir -p "$1" && cd "$1" 
+}
+
+alias rmp='pwd=`pwd` && ! test -L "$pwd" || { test -L "$pwd" && echo "failed, $pwd is a symbol link" ; false; } && cd .. && rm -rfv "$pwd" '
+# remove current dir forcely
+rmpwd() {
+    pwd=$(pwd)
+    if [ -d $pwd ] && [ ! -L $pwd ]; then
+
+        if [ -z "$(ls -A $pwd)" ]; then
+            echo -e "remove" "\033[1;33m"empty"\033[0m" $pwd
+            cd .. && rmdir -v $pwd
+        else
+            echo -e "remove" "\033[1;33m"non-empty"\033[0m" $pwd
+            cd .. && rm -rfv $pwd
+        fi
+    fi
+
+    if [ -d $pwd ] && [ -L $pwd ]; then
+        # cd ..
+        # echo "unlink $pwd"
+        # unlink $pwd
+        echo "failed, $pwd is a symbol link"
+    fi
+}
+echo 'alias/function(s):' 'mkcd' 'rmp' 
+
 
 alias path="printenv PATH | tr : '\n'"
 alias codes='cd /c/codes'
