@@ -71,6 +71,7 @@ alias sudo='sudo -E'
 # turn off bash bell
 bind 'set bell-style none'
 
+##########
 
 # if using the minimal mode, skip the rest
 if [ $1 = full ] ; then
@@ -88,7 +89,8 @@ export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
 alias path="printenv PATH | tr ':' '\n'"
 alias al='alias'
 alias v="vim"
-alias vi="vim"
+# alias vi="vim"
+alias vv='vimm.py'
 
 alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
 alias g='grep'
@@ -116,7 +118,7 @@ alias l.f="ls -dl .* | grep -v '^d' | awk '{print \$9}'"
 #alias lk='cd ~/wsp/linux_kernel'
 alias lk='cd ~/wsp_nvme0/linux_torvalds'
 
-alias vv='vimm.py'
+
 # NOTE: ctl-a + ctl-x to quit picocom
 alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
 
@@ -126,45 +128,10 @@ alias df='df -Th'
 alias lsblk='lsblk --fs'
 # time-stamp
 alias dmesg='dmesg -T'
+alias ss='ss -4ap'  # ipv4, all, process
 
-# projects
-# projects alias
-# wsp - working space
-alias ws="cd ~/wsp"
-alias wh='ws'
-alias e='cd ~/wsp/eci-release'
-alias a="cd ~/acrn-work"
-alias hv="cd ~/acrn-work/acrn-hypervisor"
-# acrn-kernel
-alias ak="cd ~/acrn-work/acrn-kernel"
-# project make/build
-# project - acrn
-# make hypervisor
-#alias _mkhv='make BOARD=~/acrn-work/MyConfiguration/my_board.board.xml SCENARIO=~/acrn-work/MyConfiguration/scenario.xml'
-#alias mkhv='make clean && _mkhv'
-
-# project ECI
-#alias eci3='cd /home/lijimin1/wsp_nvme0/eci-preliminary_alpha_3.0/master/Edge-Controls-for-Industrial/eci-release'
-
-# project qemu/kvm
-#alias qemu='/usr/bin/qemu-system-x86_64 -cpu host -m 3500 -smp 4 --enable-kvm -drive file=~/wsp_nvme0/vm.img'
-
-# cd to certain path by default when login
-#cd /home/lijimin1/wsp_nvme0
-#wh
-
-# make acrn-kernel
-mkak ()
-{
-    make distclean
-    sleep 2
-    cp kernel_config_service_vm .config
-    sleep 2
-    make olddefconfig
-    sleep 2
-    make -j 16 deb-pkg
-}
-
+# insert individual projects alias etc.
+# 
 
 # find . -name
 f.n ()
@@ -179,9 +146,11 @@ f.nf ()
     find . -name ${1} -not -path '*/.*' -print
 }
 
+# find file
 ff() {
     find ${1} -not -path '*/.*' -not -type d -print
 }
+
 # find excluding build folder
 f.xb() {
     find . -path '*/build' -prune -o $* -print
@@ -193,22 +162,19 @@ mkcd() {
 }
 
 # alias rmp='pwd=`pwd` && ! test -L "$pwd" && cd .. && rm -rfv "$pwd" || { test -L "$pwd" && cd .. && unlink "${pwd}" && echo unlinked "$pwd". ; }  || echo failed'
-
 alias rmp='pwd=`pwd` && ! test -L "$pwd" || { test -L "$pwd" && echo "failed, $pwd is a symbol link" ; false; } && cd .. && rm -rfv "$pwd" '
-
 
 # remove current dir forcely
 rmpwd() {
     pwd=$(pwd)
     if [ -d $pwd ] && [ ! -L $pwd ]; then
-        cd ..
 
         if [ -z "$(ls -A $pwd)" ]; then
             echo -e "remove" "\033[1;33m"empty"\033[0m" $pwd
-            rmdir -v $pwd
+            cd .. && rmdir -v $pwd
         else
             echo -e "remove" "\033[1;33m"non-empty"\033[0m" $pwd
-            rm -rfv $pwd
+            cd .. && rm -rfv $pwd
         fi
     fi
 
