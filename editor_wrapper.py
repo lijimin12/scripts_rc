@@ -1,3 +1,4 @@
+#!/c/Users/jiminli/AppData/Local/Programs/Python/Python38/python
 #!/usr/bin/python3
 # use scenarios
 # grep results: dir/name/basename:line: ...
@@ -14,7 +15,7 @@
 import sys, string, os, subprocess
 import re
 
-#print(sys.argv)
+print(sys.argv)
 #print(sys.argv[0])
 
 def usage():
@@ -39,6 +40,12 @@ def usage():
 
 
 def mk_cmd_str(editor, filename, lineno=""):
+    
+    if filename.startswith("/c") or filename.startswith("/C"):
+        #print("{} start with /c".format(filename))
+        filename = filename[2:]
+        #print("after remove /c, {}".format(filename))
+
     if (editor == 'vim' or editor == "vi"):
         is_vim = 1
         command = "vim " + filename
@@ -52,14 +59,15 @@ def mk_cmd_str(editor, filename, lineno=""):
             command += ":" + lineno
     elif (editor == 'npp'):
         is_npp = 1
-        command = "/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe " + filename 
+        command = "notepad++.exe " + filename 
+        # command = "/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe " + filename    # not working
         if (lineno != ""):
             command += " -n" + lineno
     else:
         print("unknown editor")
         command = ""
     
-    print(command)
+    #print(command)
     return command
 
 if len(sys.argv) <= 2:
@@ -71,9 +79,12 @@ if len(sys.argv) == 4:
     editor = sys.argv[1]
     filename = sys.argv[2]
     lineno = sys.argv[3]
+    #print("editor: {}".format(editor))
+    #print("filename: {}".format(filename))
+    #print("lineno: {}".format(lineno))
     
     if (not lineno.isdigit()):
-        print("{} should be line number".format(lineno))
+        print("ERROR: {} has been expected as a line number".format(lineno))
         sys.exit(0)
 
     command = mk_cmd_str(editor, filename, lineno)
@@ -81,7 +92,9 @@ if len(sys.argv) == 4:
         usage()
         sys.exit(0)
     #print(command)
-    subprocess.call(command, shell=True)
+    print("calling {}".format(command))
+    subprocess.call(command, shell=True)    # have to shell=True
+    
     sys.exit(0)
 
 if len(sys.argv) != 3:
@@ -98,6 +111,10 @@ if (sys.argv[1] == '--help' or sys.argv[1] == '-h'):
 editor = sys.argv[1]
 filename_line=sys.argv[2]
 #print(filename_line)
+#print("editor: {}".format(editor))
+#print("filename_line: {}".format(filename_line))
+
+# filename_line not a good var name as it misleading it contains filename and line number both
 
 # trim stuff after blank space
 first_blank=filename_line.find(' ')
@@ -108,15 +125,23 @@ if (-1 != first_blank):
 if filename_line[-1] == ':':
     filename_line = filename_line[:-1]
     #filename_line[-1] = ' '
-first_semicolon = filename_line.find(':')
-#print(first_semicolon)
+
+# C:\path\to\file:123
+if filename_line.startswith("c:") or filename_line.startswith("C:"):
+    first_semicolon = filename_line.find(':', 2)
+else:
+    first_semicolon = filename_line.find(':')
+#print("first_semicolon found at {}".foramt(first_semicolon)")
 if (-1 != first_semicolon):
+    #print(": found in filename_lineno")
     filename = filename_line[:first_semicolon]
     lineno = filename_line[first_semicolon+1:]
     second_semicolon = lineno.find(':')
     if (-1 != second_semicolon):
         lineno = lineno[:second_semicolon]
+    #print("file: {}, line: {}".format(filename, lineno))
 
+# filename123
 elif (filename_line[-1:].isdigit()):
     # filename_line has trailing line number
     lineno=re.search(r"(\d+)$", filename_line).group()
@@ -129,9 +154,10 @@ else:
     
 
 command = mk_cmd_str(editor, filename, lineno)
-print(command)
+#print(command)
 if (command == ""):
     usage()
     sys.exit(0)
 
+print("calling {}".format(command))
 subprocess.call(command, shell=True)

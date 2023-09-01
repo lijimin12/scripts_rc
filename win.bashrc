@@ -56,16 +56,16 @@ f.n ()
 }
 alias f='f.n'
 
-# find a text notes file
-tf ()
+# find a markdown notes file
+mf ()
 {
-    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1}'*' -not -path '*/.*' -print
+    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1}'*.md' -not -path '*/.*' -print
 }
 
 # grep in .md markdown notes
 alias mg='g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
 # grep in certain folders rather than current one
-mgg ()
+function mg ()
 {
     g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w ${1} /c/x /c/my/tech /c/codes/Jimin-Z8
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
@@ -99,15 +99,17 @@ rmpwd() {
         echo "failed, $pwd is a symbol link"
     fi
 }
-echo 'alias/function(s):' 'mkcd' 'rmp' 
+
+# as a notice to user
+echo 'alias/function(s):' 'mkcd', 'rmp', 'mf FILENAME', 'mg STRING' 
 
 
 alias path="printenv PATH | tr : '\n'"
 alias codes='cd /c/codes'
 # gitbash special, invalid on Linux
-alias npp='/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe'
+#alias npp='/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe'
 #alias np='notepad'
-alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" npp'
+alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" "npp"'
 alias gvim='"C:\Program Files (x86)\Vim\vim90\gvim.exe"'
 alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" vim'
 # vs code
