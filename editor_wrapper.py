@@ -1,10 +1,12 @@
 #!/c/Users/jiminli/AppData/Local/Programs/Python/Python38/python
 #!/usr/bin/python3
-# use scenarios
-# grep results: dir/name/basename:line: ...
+# use scenarios 动机
+# grep results: dir/name/basename:line:text containing matched pattern
 # while default vim command line syntax is 'vim file +line'
 # the intention is to click copy/paste the grep result and open vim to edit it, locating to the certain line
 # the suggested location of this script is ~/bin
+#
+# NOTE: just support only one filename as script arugments
 #
 # 2023.8 从 vimm.py 扩展到 editor_wrapper.py，从而支持 vim, vscode, and notepad++ 
 # windows ~/.bashrc
@@ -15,7 +17,7 @@
 import sys, string, os, subprocess
 import re
 
-print(sys.argv)
+#print(sys.argv)
 #print(sys.argv[0])
 
 def usage():
@@ -23,11 +25,11 @@ def usage():
     print(syntax)
     formats = '''
     supported formats:
-    filename line
-    filename:line
-    filename:line:
-    filename+line
-    filenameline
+        filename line
+        filename:line
+        filename:line:
+        filename+line
+        filenameline
     '''
     print(formats)
     help = '''
@@ -37,7 +39,12 @@ def usage():
         vv --help or vv -h
     '''
     print(help)
-
+    notes = '''
+    vv - vim
+    np - notepad++
+    vs - vscode
+    This script can launch on both Linux bash and Windows gitbash.
+    '''
 
 def mk_cmd_str(editor, filename, lineno=""):
     
@@ -60,7 +67,6 @@ def mk_cmd_str(editor, filename, lineno=""):
     elif (editor == 'npp'):
         is_npp = 1
         command = "notepad++.exe " + filename 
-        # command = "/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe " + filename    # not working
         if (lineno != ""):
             command += " -n" + lineno
     else:

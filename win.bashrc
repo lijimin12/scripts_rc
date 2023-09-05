@@ -63,7 +63,7 @@ mf ()
 }
 
 # grep in .md markdown notes
-alias mg='g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
+# alias mg='g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
 # grep in certain folders rather than current one
 function mg ()
 {
