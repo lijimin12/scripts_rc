@@ -59,7 +59,8 @@ alias f='f.n'
 # find a markdown notes file
 mf ()
 {
-    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1}'*.md' -not -path '*/.*' -print
+    # ${1%.md} is to remove file extention name
+    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print
 }
 
 # grep in .md markdown notes
