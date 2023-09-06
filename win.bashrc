@@ -66,9 +66,12 @@ mf ()
 # grep in .md markdown notes
 # alias mg='g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
 # grep in certain folders rather than current one
+# use $* instead of $1, so as we can use `mg -w tc`
 function mg ()
 {
-    g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w ${1} /c/x /c/my/tech /c/codes/Jimin-Z8
+    # set -x
+    g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w $* /c/x /c/my/tech /c/codes/Jimin-Z8
+    # set +x
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
 
