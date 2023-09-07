@@ -14,7 +14,8 @@
 # alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" vim'
 # alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" code'
 #
-# when calling vim, the path/to/file passed in need to include '/c' suffix
+# when subprocess calling vim, the path/to/file passed in needs to include '/c' suffix,
+# however, for windows apps, such as notepad++, vscode, and gvim, it cannot has the '/c' suffix, but "C:" suffix is optional.
 
 import sys, string, os, subprocess
 import re
@@ -51,14 +52,21 @@ def usage():
 def mk_cmd_str(editor, filename, lineno=""):
     
     if filename.startswith("/c") or filename.startswith("/C"):
-        if editor == 'code' or editor == 'npp':
+        # for windows apps, have to remove '/c' suffix
+        if editor == 'code' or editor == 'npp' or editor == 'gvim':
             #print("{} start with /c".format(filename))
-            filename = filename[2:]
+            filename = "C:" + filename[2:]
+            # filename = filename[2:] can work as well
             #print("after remove /c, {}".format(filename))
 
     if (editor == 'vim' or editor == "vi"):
         is_vim = 1
         command = "vim " + filename
+        if (lineno != ""):
+            command += " +" + lineno
+    if (editor == 'gvim'):
+        is_gvim = 1
+        command = "gvim " + filename
         if (lineno != ""):
             command += " +" + lineno
     elif (editor == 'code'):
@@ -102,7 +110,7 @@ if len(sys.argv) == 4:
         usage()
         sys.exit(0)
     #print(command)
-    print("calling {}".format(command))
+    print("subprocess calling {}".format(command))
     subprocess.call(command, shell=True)    # have to shell=True
     
     sys.exit(0)
@@ -170,5 +178,5 @@ if (command == ""):
     usage()
     sys.exit(0)
 
-print("calling {}".format(command))
+print("subprocess calling {}".format(command))
 subprocess.call(command, shell=True)
