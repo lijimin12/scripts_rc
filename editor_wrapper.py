@@ -13,11 +13,13 @@
 # alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" npp'
 # alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" vim'
 # alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" code'
+#
+# when calling vim, the path/to/file passed in need to include '/c' suffix
 
 import sys, string, os, subprocess
 import re
 
-#print(sys.argv)
+print(sys.argv)
 #print(sys.argv[0])
 
 def usage():
@@ -49,9 +51,10 @@ def usage():
 def mk_cmd_str(editor, filename, lineno=""):
     
     if filename.startswith("/c") or filename.startswith("/C"):
-        #print("{} start with /c".format(filename))
-        filename = filename[2:]
-        #print("after remove /c, {}".format(filename))
+        if editor == 'code' or editor == 'npp':
+            #print("{} start with /c".format(filename))
+            filename = filename[2:]
+            #print("after remove /c, {}".format(filename))
 
     if (editor == 'vim' or editor == "vi"):
         is_vim = 1
@@ -73,7 +76,7 @@ def mk_cmd_str(editor, filename, lineno=""):
         print("unknown editor")
         command = ""
     
-    #print(command)
+    print("mk_cmd_str() returning {}".format(command))
     return command
 
 if len(sys.argv) <= 2:
@@ -81,6 +84,7 @@ if len(sys.argv) <= 2:
     sys.exit(0)
 
 if len(sys.argv) == 4:
+    print("sys.argv == {}".format(sys.argv))
     # CLI: __file__ vim|code|npp filename lineno
     editor = sys.argv[1]
     filename = sys.argv[2]
@@ -108,6 +112,7 @@ if len(sys.argv) != 3:
     sys.exit(0)
 
 # hereafter, sys.argv == 3
+print("sys.argv == {}".format(sys.argv))
 # CLI: __file__ vim|code|npp filename:lineno
 
 if (sys.argv[1] == '--help' or sys.argv[1] == '-h'):
