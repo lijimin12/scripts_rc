@@ -3,6 +3,9 @@
 # 	source "C:\codes\Jimin-Z8\scripts\win.bashrc"
 # 	echo "Jimin-Z8\win.bashrc sourced"
 
+
+bind '"\C-d": kill-word'	# forward, i.e. right to cursor
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias clr="clear && printf '\033[3J'"
@@ -20,6 +23,11 @@ alias h='history'
 alias v="vim"
 # alias vi="vim"
 alias vv='vimm.py'
+# list git aliases
+alias gital='git config -l  | grep ^alias'
+# cd my github repos locally
+alias t='type'
+alias what='type'
 
 # some more ls aliases
 alias ls='ls --color=auto'  # as the default color mode is 'none'
@@ -105,17 +113,46 @@ rmpwd() {
 }
 
 # as a notice to user
-echo 'alias/function(s):' 'mkcd', 'rmp', 'mf FILENAME', 'mg STRING' 
+echo 'alias/function(s):' 'mkcd', 'rmp', 'mf FILENAME', 'mg STRING', 'opdf' 
 
+# open pdf
+# only one argument: $1 RDC#
+# do open only when there is excatly a single found file 
+opdf ()
+{
+    # set -o pipefail
+	# find -name "*${1}*.pdf" -print0 | xargs -0 AcroRd32.exe
+
+    r=$(find -name "*${1}*.pdf")
+    # echo "'$r'"
+    count=$(echo -n "$r" | wc -l)
+    # echo $count
+    if [ -n "$r" ] && [ $count == 0 ] ; then
+        AcroRd32.exe "$r"
+        # echo do_open
+    else
+        echo "$r"
+    fi
+}
+alias ordc=opdf
 
 alias path="printenv PATH | tr : '\n'"
+# alias paths='printenv PATH | sed -e '\''s/[Cc]:/\\C/g'\'' | sed -e '\''s/:/\n/g'\'
+# to support "C:\Programs" in gitbash
+alias paths="printenv PATH | sed -e 's/[Cc]:/\\\\C/g' | sed -e 's/:/\n/g'"
+
+# cd certain folder
 alias codes='cd /c/codes'
+alias hub='cd /c/codes/Jimin-Z8/Scripts'
+
 # gitbash special, invalid on Linux
 #alias npp='/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe'
 #alias np='notepad'
 alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" "npp"'
-alias gvim='"C:\Program Files (x86)\Vim\vim90\gvim.exe"'
+#alias gvim='"C:\Program Files (x86)\Vim\vim90\gvim.exe"'
 alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" vim'
+# gvim
+alias gv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" gvim'
 # vs code
 alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" code'
 alias ex='explorer'

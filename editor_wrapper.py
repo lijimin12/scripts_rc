@@ -2,20 +2,23 @@
 #!/usr/bin/python3
 # use scenarios 动机
 # grep results: dir/name/basename:line:text containing matched pattern
-# while default vim command line syntax is 'vim file +line'
+# however, the default vim command line syntax is 'vim file +line'
 # the intention is to click copy/paste the grep result and open vim to edit it, locating to the certain line
 # the suggested location of this script is ~/bin
 #
 # NOTE: just support only one filename as script arugments
 #
 # 2023.8 从 vimm.py 扩展到 editor_wrapper.py，从而支持 vim, vscode, and notepad++ 
+# 该脚本用于gitbash。not intended to be run directly in CLI, instead aliases defined to run this script:
 # windows ~/.bashrc
 # alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" npp'
 # alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" vim'
 # alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" code'
+# alias gv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" gvim'
+# NOTE: PATH should be set up correctly in advance for editor programs (notepad++ etc.)
 #
 # when subprocess calling vim, the path/to/file passed in needs to include '/c' suffix,
-# however, for windows apps, such as notepad++, vscode, and gvim, it cannot has the '/c' suffix, but "C:" suffix is optional.
+# however, for windows apps, such as notepad++, vscode, and gvim, it cannot has the '/c' suffix, while "C:" suffix is optional.
 
 import sys, string, os, subprocess
 import re
@@ -24,7 +27,7 @@ print(sys.argv)
 #print(sys.argv[0])
 
 def usage():
-    syntax = "Syntax: " + __file__ + " vim|code|npp" + " filename:line"
+    syntax = "Syntax: " + __file__ + " vim|code|npp|gvim" + " filename:line"
     print(syntax)
     formats = '''
     supported formats:
@@ -46,6 +49,7 @@ def usage():
     vv - vim
     np - notepad++
     vs - vscode
+    gv - gvim
     This script can launch on both Linux bash and Windows gitbash.
     '''
 
@@ -64,7 +68,7 @@ def mk_cmd_str(editor, filename, lineno=""):
         command = "vim " + filename
         if (lineno != ""):
             command += " +" + lineno
-    if (editor == 'gvim'):
+    elif (editor == 'gvim'):
         is_gvim = 1
         command = "gvim " + filename
         if (lineno != ""):

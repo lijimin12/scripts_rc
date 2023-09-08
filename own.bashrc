@@ -62,6 +62,7 @@ alias ...='cd ../..'
 alias clr="clear && printf '\033[3J'"
 alias h='history'
 alias v='vim'
+alias t='type'
 
 # preserve environment
 # alias sudo="sudo -E "
@@ -70,6 +71,10 @@ alias sudo='sudo -E'
 
 # turn off bash bell
 bind 'set bell-style none'
+
+# ctrl-d to delete word
+# by default, ctrl-w to delete word backwardly
+bind '"\C-d": kill-word'	# forward, i.e. right to cursor
 
 ##########
 
@@ -109,6 +114,8 @@ alias wcdos="grep -cU $'\r'"
 alias wctab="grep -cU $'\t'"
 
 alias gitnp='git --no-pager'
+# lias git aliases
+alias gital='git config -l  | grep ^alias'
 alias virc='vim ~/.bashrc'
 alias ll='ls -ahlF'
 # list only .* files and directories
