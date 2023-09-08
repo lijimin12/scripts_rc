@@ -58,17 +58,19 @@ alias wctab="grep -cU $'\t'"
 # g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 
 # find . -name
+# and put results into windows clipboard
 f.n ()
 {
-    find . -iname '*'${1}'*' -not -path '*/.*' -print
+    # find . -iname '*'${1}'*' -not -path '*/.*' -print
+    find . -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | clip
 }
 alias f='f.n'
 
-# find a markdown notes file
+# find a markdown notes file, and put results into windows clipboard
 mf ()
 {
     # ${1%.md} is to remove file extention name
-    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print
+    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print | tee /dev/stderr | clip
 }
 
 # grep in .md markdown notes
