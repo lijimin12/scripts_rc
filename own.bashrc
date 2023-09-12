@@ -52,17 +52,21 @@ then
 fi
 export PATH
 
-
+# single char aliases
 # go back
 alias b='cd -'
 alias p='pwd'
 alias ..='cd ..'
 alias ...='cd ../..'
 
-alias clr="clear && printf '\033[3J'"
 alias h='history'
 alias v='vim'
 alias t='type'
+alias what='type'
+
+# other single char aliases (f, g) are defined below
+
+alias clr="clear && printf '\033[3J'"
 
 # preserve environment
 # alias sudo="sudo -E "
@@ -93,7 +97,6 @@ export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
 
 alias path="printenv PATH | tr ':' '\n'"
 alias al='alias'
-alias v="vim"
 # alias vi="vim"
 alias vv='vimm.py'
 
