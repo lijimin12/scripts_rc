@@ -70,12 +70,12 @@ alias h='history'
 alias v='vim'
 alias t='type'
 alias what='type'
+# w not alias
 
 alias al='alias'
-alias h='history'
-alias v="vim"
+
 # alias vi="vim"
-# other single char aliases (f, g) are defined below
+# other single char aliases (f, g etc.) are defined below
 
 alias vv='vimm.py'
 
@@ -94,21 +94,36 @@ alias l.='ls -d .*'
 # list only .* hidden files
 alias l.f="ls -dl .* | grep -v '^d' | awk '{print \$9}'"
 
-alias grep='grep -I --color=auto'
+# grep aliases
+alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
+# alias grep='grep -I --color=auto'
 alias g='grep -nr -i'
+# grep recursively in c source files
+#alias cg='g -nr --include="*.c" --include="*.h"'
 alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
 # python grep
 alias pg='g -nr --include="*.py" '
 # search text files (.txt .md)
 #alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
+# linux kernel source grep = cg + excluding some folders
+# all archs except x86 excluded
+alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
+# exlude 'build'
+alias gnb='grep --exclude-dir="build"'
+
+# git
+alias gitnp='git --no-pager'
+# list git aliases
+alias gital='git config -l  | grep ^alias'
+
+alias clr="clear && printf '\033[3J'"
+
+alias vimrc='vim ~/.bashrc'
 
 # word count dos '\r'
 alias wcdos="grep -cU $'\r'"
 # word count tab '\t'
 alias wctab="grep -cU $'\t'"
-
-
-alias clr="clear && printf '\033[3J'"
 
 alias path="printenv PATH | tr ':' '\n'"
 # alias path="printenv PATH | tr : '\n'"
@@ -193,26 +208,10 @@ ca () {
 	cat -n "$1" | head -$(($2 + $c)) | tail -$(($c * 2 + 1))
 }
 
-# grep aliases
-alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
-alias g='grep'
-# exlude 'build'
-alias gnb='grep --exclude-dir="build"'
-# grep recursively in c source files
-#alias cg='g -nr --include="*.c" --include="*.h"'
-alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
-# linux kernel source grep = cg + excluding some folders
-# all archs except x86 excluded
-alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
+# as a notice to user
+echo 'alias/function(s):' 'f', 'g', 'mkcd', 'rmp', 'ca FILENAME LINENUMBER' 
 
-
-alias gitnp='git --no-pager'
-# list git aliases
-alias gital='git config -l  | grep ^alias'
-
-alias vimrc='vim ~/.bashrc'
-
-##########
+########################################
 
 # if using the minimal mode, skip the rest
 # NOTE $1 have to be put in ""

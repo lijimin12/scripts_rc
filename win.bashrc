@@ -68,13 +68,7 @@ opdf ()
 }
 alias ordc=opdf
 
-# as a notice to user
-echo 'alias/function(s):' 'mkcd', 'rmp', 'ca FILENAME LINENUMBER', 'mf FILENAME', 'mg STRING', 'opdf' 
-
-
-
 # cd certain folder
-alias codes='cd /c/codes'
 alias hub='cd /c/codes/Jimin-Z8/Scripts'
 
 # gitbash special, invalid on Linux
@@ -88,6 +82,9 @@ alias gv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "
 # vs code
 alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" code'
 alias ex='explorer'
+
+# as a notice to user
+echo 'alias/function(s):' 'ex', 'mf FILENAME', 'mg STRING', 'ordc', 'vv|vs|np' 
 
 #cd /c/x
 # use instead "C:\Program Files\Git\git-bash.exe" --cd="C:\x"
