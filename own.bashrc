@@ -196,6 +196,14 @@ rmpwd() {
     fi
 }
 
+# ca FILENAME [LINENUMBER [CONTEXT=2]]
+ca () {
+	# echo $#
+	if [ $# -eq 0 ]; then echo 'Usage: ca FILENAME [LINENUMBER [CONTEXT=2]]'; return; fi
+	if [ $# -eq 1 ]; then cat "$1"; return; fi
+	c=${3:-2}	# default context is 2
+	cat -n "$1" | head -$(($2 + $c)) | tail -$(($c * 2 + 1))
+}
 
 echo "my github standard/full bashrc.own sourced"
 

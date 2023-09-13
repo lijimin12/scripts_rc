@@ -75,8 +75,9 @@ mf ()
 
 # grep in .md markdown notes
 # alias mg='g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
-# grep in certain folders rather than current one
+# grep in certain folders rather than pwd
 # use $* instead of $1, so as we can use `mg -w tc`
+# to grep "--color=auto", `mg -- --color=auto`
 function mg ()
 {
     # set -x
@@ -114,8 +115,17 @@ rmpwd() {
     fi
 }
 
+# ca FILENAME [LINENUMBER [CONTEXT=2]]
+ca () {
+	# echo $#
+	if [ $# -eq 0 ]; then echo 'Usage: ca FILENAME [LINENUMBER [CONTEXT=2]]'; return; fi
+	if [ $# -eq 1 ]; then cat "$1"; return; fi
+	c=${3:-2}	# default context is 2
+	cat -n "$1" | head -$(($2 + $c)) | tail -$(($c * 2 + 1))
+}
+
 # as a notice to user
-echo 'alias/function(s):' 'mkcd', 'rmp', 'mf FILENAME', 'mg STRING', 'opdf' 
+echo 'alias/function(s):' 'mkcd', 'rmp', 'ca FILENAME LINENUMBER', 'mf FILENAME', 'mg STRING', 'opdf' 
 
 # open pdf
 # only one argument: $1 RDC#
