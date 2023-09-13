@@ -59,9 +59,6 @@ echo "Windows_NT"
 fi
 
 
-
-
-
 # single char aliases
 # dir
 alias ..='cd ..'
@@ -218,11 +215,13 @@ alias vimrc='vim ~/.bashrc'
 ##########
 
 # if using the minimal mode, skip the rest
-if [ $1 = full ] ; then
+# NOTE $1 have to be put in ""
+if [ "$1" = "full" ] ; then
     :
     #echo "full own.bashrc required"
 elif true ; then
-	echo "my github standard own.bashrc sourced, return"
+	# echo "my github standard own.bashrc sourced"
+    echo "standard Jimin-Z8\own.bashrc sourced"
 	return
 fi
 

@@ -92,3 +92,4 @@ alias ex='explorer'
 #cd /c/x
 # use instead "C:\Program Files\Git\git-bash.exe" --cd="C:\x"
 
+echo "Jimin-Z8\win.bashrc sourced"
