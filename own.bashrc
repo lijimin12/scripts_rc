@@ -1,15 +1,18 @@
-# ~/bashrc.own
-# make ~/bashrc.own a symbol link to my downloaded repo.
+# This is my own bashrc shared by Linux and Windows
+# ~/own.bashrc
+# make ~/own.bashrc a symbol link to my downloaded Jimin-Z8 repo.
 
-# if [ -f ~/bashrc.own ]; then
-#   . ~/bashrc.own [full]
+# if [ -f ~/own.bashrc ]; then
+#   . ~/own.bashrc [extra]
 # fi
-# two modes available: minimal (the default) and standard/full. Can be specified via parameter
+# two modes available: standard (the default) and extra. Can be specified via parameter
+# seems unwise to maintain minimal and standard versions
 
+# own.bashrc.standard
+# avoid duplication in own.bashrc and own.bashrc.extra
 
-# bashrc.own.minimal
-# avoid duplication in bashrc.own and bashrc.own.minimal
-
+if [ "$OS" != "Windows_NT" ]; then
+echo "NOT Windows_NT"
 export http_proxy="http://child-prc.intel.com:913"
 export https_proxy="http://child-prc.intel.com:913"
 export ftp_proxy="ftp://child-prc.intel.com:913/"
@@ -51,27 +54,76 @@ then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
+else
+echo "Windows_NT"
+fi
+
+
+
+
 
 # single char aliases
-# go back
-alias b='cd -'
-alias p='pwd'
+# dir
 alias ..='cd ..'
 alias ...='cd ../..'
+alias b='cd -'  # go back
+alias p='pwd'
 
 alias h='history'
 alias v='vim'
 alias t='type'
 alias what='type'
 
+alias al='alias'
+alias h='history'
+alias v="vim"
+# alias vi="vim"
 # other single char aliases (f, g) are defined below
+
+alias vv='vimm.py'
+
+# some more ls aliases
+alias ls='ls --color=auto'  # as the default color mode is 'none'
+alias l='ls -F'     # e.g. append "/" to denote folder
+alias ll='ls -AlFh' # -A vs. -a
+alias la='ls -A'
+# reversely time sorted
+alias llrt='ll -rt'
+# sort by file size
+alias llsize='ll -rSh'
+alias llsz='llsize'
+# list only .* hidden files and directories
+alias l.='ls -d .*'
+# list only .* hidden files
+alias l.f="ls -dl .* | grep -v '^d' | awk '{print \$9}'"
+
+alias grep='grep -I --color=auto'
+alias g='grep -nr -i'
+alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
+# python grep
+alias pg='g -nr --include="*.py" '
+# search text files (.txt .md)
+#alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
+
+# word count dos '\r'
+alias wcdos="grep -cU $'\r'"
+# word count tab '\t'
+alias wctab="grep -cU $'\t'"
+
 
 alias clr="clear && printf '\033[3J'"
 
+alias path="printenv PATH | tr ':' '\n'"
+# alias path="printenv PATH | tr : '\n'"
+# alias paths='printenv PATH | sed -e '\''s/[Cc]:/\\C/g'\'' | sed -e '\''s/:/\n/g'\'
+# to support "C:\Programs" in gitbash
+alias paths="printenv PATH | sed -e 's/[Cc]:/\\\\C/g' | sed -e 's/:/\n/g'"
+
+if [ "$OS" != "Windows_NT" ]; then
 # preserve environment
 # alias sudo="sudo -E "
 alias sudo='sudo -E'
-
+fi
 
 # turn off bash bell
 bind 'set bell-style none'
@@ -80,68 +132,8 @@ bind 'set bell-style none'
 # by default, ctrl-w to delete word backwardly
 bind '"\C-d": kill-word'	# forward, i.e. right to cursor
 
-##########
-
-# if using the minimal mode, skip the rest
-if [ $1 = full ] ; then
-    :
-    #echo "full bashrc.own required"
-elif true ; then
-	echo "my github minimal bashrc.own sourced, return"
-	return
-fi
-
-
 export EDITOR='vim'
 export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
-
-alias path="printenv PATH | tr ':' '\n'"
-alias al='alias'
-# alias vi="vim"
-alias vv='vimm.py'
-
-alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
-alias g='grep'
-# exlude 'build'
-alias gnb='grep --exclude-dir="build"'
-# grep recursively in c source files
-#alias cg='g -nr --include="*.c" --include="*.h"'
-alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
-# linux kernel source grep = cg + excluding some folders
-# all archs except x86 excluded
-alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
-
-# word count dos '\r'
-alias wcdos="grep -cU $'\r'"
-# word count tab '\t'
-alias wctab="grep -cU $'\t'"
-
-alias gitnp='git --no-pager'
-# lias git aliases
-alias gital='git config -l  | grep ^alias'
-alias virc='vim ~/.bashrc'
-alias ll='ls -ahlF'
-# list only .* files and directories
-alias l.='ls -d .*'
-# list only .* files
-alias l.f="ls -dl .* | grep -v '^d' | awk '{print \$9}'"
-#alias lk='cd ~/wsp/linux_kernel'
-alias lk='cd ~/wsp_nvme0/linux_torvalds'
-
-
-# NOTE: ctl-a + ctl-x to quit picocom
-alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
-
-# human readable
-alias free='free -h'
-alias df='df -Th'
-alias lsblk='lsblk --fs'
-# time-stamp
-alias dmesg='dmesg -T'
-alias ss='ss -4ap'  # ipv4, all, process
-
-# insert individual projects alias etc.
-# 
 
 # find . -name
 f.n ()
@@ -198,12 +190,63 @@ rmpwd() {
 
 # ca FILENAME [LINENUMBER [CONTEXT=2]]
 ca () {
-	# echo $#
 	if [ $# -eq 0 ]; then echo 'Usage: ca FILENAME [LINENUMBER [CONTEXT=2]]'; return; fi
 	if [ $# -eq 1 ]; then cat "$1"; return; fi
 	c=${3:-2}	# default context is 2
 	cat -n "$1" | head -$(($2 + $c)) | tail -$(($c * 2 + 1))
 }
 
-echo "my github standard/full bashrc.own sourced"
+# grep aliases
+alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
+alias g='grep'
+# exlude 'build'
+alias gnb='grep --exclude-dir="build"'
+# grep recursively in c source files
+#alias cg='g -nr --include="*.c" --include="*.h"'
+alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
+# linux kernel source grep = cg + excluding some folders
+# all archs except x86 excluded
+alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
 
+
+alias gitnp='git --no-pager'
+# list git aliases
+alias gital='git config -l  | grep ^alias'
+
+alias vimrc='vim ~/.bashrc'
+
+##########
+
+# if using the minimal mode, skip the rest
+if [ $1 = full ] ; then
+    :
+    #echo "full own.bashrc required"
+elif true ; then
+	echo "my github standard own.bashrc sourced, return"
+	return
+fi
+
+
+if [ "$OS" != "Windows_NT" ]; then
+
+# go to certain folder
+#alias lk='cd ~/wsp/linux_kernel'
+alias lk='cd ~/wsp_nvme0/linux_torvalds'
+
+# NOTE: ctl-a + ctl-x to quit picocom
+alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
+
+# human readable
+alias free='free -h'
+alias df='df -Th'
+alias lsblk='lsblk --fs'
+# time-stamp
+alias dmesg='dmesg -T'
+alias ss='ss -4ap'  # ipv4, all, process
+
+# insert individual projects alias etc.
+# 
+fi
+
+
+echo "full Jimin-Z8\own.bashrc sourced"

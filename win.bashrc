@@ -1,58 +1,16 @@
 #
 # in ~/.bashrc for gitbash on windows
+#   source "C:\codes\Jimin-Z8\scripts\own.bashrc"
 # 	source "C:\codes\Jimin-Z8\scripts\win.bashrc"
 # 	echo "Jimin-Z8\win.bashrc sourced"
+#
+# only win.bashrc speicial aliases put here. common on Linux and Windows put in own.bashrc
 
 
-bind '"\C-d": kill-word'	# forward, i.e. right to cursor
-
-alias ..='cd ..'
-alias ...='cd ../..'
-alias clr="clear && printf '\033[3J'"
-
-
-# dir
-alias b='cd -'
-alias p='pwd'
-alias ..='cd ..'
-alias ...='cd ../..'
-
-alias clr="clear && printf '\033[3J'"
-alias al='alias'
-alias h='history'
-alias v="vim"
-# alias vi="vim"
-alias vv='vimm.py'
-# list git aliases
-alias gital='git config -l  | grep ^alias'
-# cd my github repos locally
-alias t='type'
-alias what='type'
-
-# some more ls aliases
-alias ls='ls --color=auto'  # as the default color mode is 'none'
-alias l='ls -F'     # e.g. append "/" to denote folder
-alias ll='ls -AlFh'
-alias la='ls -A'
-# reversely time sorted
-alias llrt='ll -rt'
-# sort by file size
-alias llsize='ll -rSh'
-alias llsz='llsize'
-
-alias grep='grep -I --color=auto'
-alias g='grep -nr -i'
-alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
-# python grep
-alias pg='g -nr --include="*.py" '
-# search text files (.txt .md)
-#alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
-
-# word count dos '\r'
-alias wcdos="grep -cU $'\r'"
-# word count tab '\t'
-alias wctab="grep -cU $'\t'"
-
+if [ "$OS" != "Windows_NT" ]; then
+    echo "warning: this win.bashrc should be sourced only on Windows"
+    return
+fi
 
 #alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" /c/my /c/codes/Jimin-Z8 /c/x '
 # g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
@@ -61,6 +19,7 @@ alias wctab="grep -cU $'\t'"
 # and put results into windows clipboard
 f.n ()
 {
+	if [ $# -ne 1 ]; then echo 'Usage: f.n FILENAME_PATTERN'; return; fi
     # find . -iname '*'${1}'*' -not -path '*/.*' -print
     find . -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | clip
 }
@@ -69,6 +28,7 @@ alias f='f.n'
 # find a markdown notes file, and put results into windows clipboard
 mf ()
 {
+	if [ $# -ne 1 ]; then echo 'Usage: mf FILENAME_PATTERN'; return; fi
     # ${1%.md} is to remove file extention name
     find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print | tee /dev/stderr | clip
 }
@@ -86,52 +46,12 @@ function mg ()
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
 
-# copied from own.bashrc
-# dont modify here
-mkcd() { 
-    mkdir -p "$1" && cd "$1" 
-}
-
-alias rmp='pwd=`pwd` && ! test -L "$pwd" || { test -L "$pwd" && echo "failed, $pwd is a symbol link" ; false; } && cd .. && rm -rfv "$pwd" '
-# remove current dir forcely
-rmpwd() {
-    pwd=$(pwd)
-    if [ -d $pwd ] && [ ! -L $pwd ]; then
-
-        if [ -z "$(ls -A $pwd)" ]; then
-            echo -e "remove" "\033[1;33m"empty"\033[0m" $pwd
-            cd .. && rmdir -v $pwd
-        else
-            echo -e "remove" "\033[1;33m"non-empty"\033[0m" $pwd
-            cd .. && rm -rfv $pwd
-        fi
-    fi
-
-    if [ -d $pwd ] && [ -L $pwd ]; then
-        # cd ..
-        # echo "unlink $pwd"
-        # unlink $pwd
-        echo "failed, $pwd is a symbol link"
-    fi
-}
-
-# ca FILENAME [LINENUMBER [CONTEXT=2]]
-ca () {
-	# echo $#
-	if [ $# -eq 0 ]; then echo 'Usage: ca FILENAME [LINENUMBER [CONTEXT=2]]'; return; fi
-	if [ $# -eq 1 ]; then cat "$1"; return; fi
-	c=${3:-2}	# default context is 2
-	cat -n "$1" | head -$(($2 + $c)) | tail -$(($c * 2 + 1))
-}
-
-# as a notice to user
-echo 'alias/function(s):' 'mkcd', 'rmp', 'ca FILENAME LINENUMBER', 'mf FILENAME', 'mg STRING', 'opdf' 
-
 # open pdf
 # only one argument: $1 RDC#
 # do open only when there is excatly a single found file 
 opdf ()
 {
+	if [ $# -ne 1 ]; then echo 'Usage: opdf RDC#'; return; fi
     # set -o pipefail
 	# find -name "*${1}*.pdf" -print0 | xargs -0 AcroRd32.exe
 
@@ -148,10 +68,10 @@ opdf ()
 }
 alias ordc=opdf
 
-alias path="printenv PATH | tr : '\n'"
-# alias paths='printenv PATH | sed -e '\''s/[Cc]:/\\C/g'\'' | sed -e '\''s/:/\n/g'\'
-# to support "C:\Programs" in gitbash
-alias paths="printenv PATH | sed -e 's/[Cc]:/\\\\C/g' | sed -e 's/:/\n/g'"
+# as a notice to user
+echo 'alias/function(s):' 'mkcd', 'rmp', 'ca FILENAME LINENUMBER', 'mf FILENAME', 'mg STRING', 'opdf' 
+
+
 
 # cd certain folder
 alias codes='cd /c/codes'
