@@ -53,6 +53,7 @@ frdc ()
     # ${1%.md} is to remove file extention name
     find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | clip
 }
+alias rdcf=frdc
 
 # open pdf
 # only one argument: $1 RDC#
@@ -76,6 +77,7 @@ opdf ()
     fi
 }
 alias ordc=opdf
+alias rdco=ordc
 
 # cd certain folder
 alias hub='cd /c/codes/Jimin-Z8/Scripts'
@@ -100,7 +102,7 @@ alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "
 # ex c:/x
 # all above can work
 ex () {
-	if [ $# -ne 1 ]; then echo "Usage: $FUNCNAME RDC#"; return; fi
+	if [ $# -ne 1 ]; then echo "Usage: $FUNCNAME /PAHT/TO/DIR_or_FILE"; return; fi
     # echo /c/x/Core/11th-Tiger-Lake | sed -e 's/\//\\/g' | sed -e 's/^\\c/c:/'
     filepath=$(echo $1 | sed -e 's/\//\\/g' | sed -e 's/^\\c/c:/')
     # echo $filepath
@@ -108,7 +110,7 @@ ex () {
 }
 
 # as a notice to user
-echo 'alias/function(s):' 'ex', 'mf FILENAME', 'mg STRING', 'frdc', 'ordc', 'vv|vs|np' 
+echo 'alias/function(s):' 'ex', 'mf FILENAME', 'mg STRING', 'rdcf RDC#', 'rdco RDC#', 'vv|vs|np' 
 
 #cd /c/x
 # use instead "C:\Program Files\Git\git-bash.exe" --cd="C:\x"
