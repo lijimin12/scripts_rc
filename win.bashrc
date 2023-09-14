@@ -46,6 +46,14 @@ function mg ()
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
 
+# find RDC
+frdc ()
+{
+	if [ $# -ne 1 ]; then echo "Usage: $FUNCNAME FILENAME_PATTERN"; return; fi
+    # ${1%.md} is to remove file extention name
+    find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | clip
+}
+
 # open pdf
 # only one argument: $1 RDC#
 # do open only when there is excatly a single found file 
@@ -55,7 +63,7 @@ opdf ()
     # set -o pipefail
 	# find -name "*${1}*.pdf" -print0 | xargs -0 AcroRd32.exe
 
-    r=$(find -name "*${1}*.pdf")
+    r=$(find /c/x /c/Users/jiminli/Downloads -iname "*${1}*.pdf")
     # echo "'$r'"
     count=$(echo -n "$r" | wc -l)
     # echo $count
@@ -63,6 +71,7 @@ opdf ()
         AcroRd32.exe "$r"
         # echo do_open
     else
+        # print found rdc files
         echo "$r"
     fi
 }
@@ -81,10 +90,25 @@ alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "
 alias gv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" gvim'
 # vs code
 alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" code'
-alias ex='explorer'
+
+# alias ex='explorer'
+# ex '\c\x'
+# ex '\x'
+# ex 'c:\x'
+# ex /c/x
+# ex /x
+# ex c:/x
+# all above can work
+ex () {
+	if [ $# -ne 1 ]; then echo "Usage: $FUNCNAME RDC#"; return; fi
+    # echo /c/x/Core/11th-Tiger-Lake | sed -e 's/\//\\/g' | sed -e 's/^\\c/c:/'
+    filepath=$(echo $1 | sed -e 's/\//\\/g' | sed -e 's/^\\c/c:/')
+    # echo $filepath
+    explorer $filepath
+}
 
 # as a notice to user
-echo 'alias/function(s):' 'ex', 'mf FILENAME', 'mg STRING', 'ordc', 'vv|vs|np' 
+echo 'alias/function(s):' 'ex', 'mf FILENAME', 'mg STRING', 'frdc', 'ordc', 'vv|vs|np' 
 
 #cd /c/x
 # use instead "C:\Program Files\Git\git-bash.exe" --cd="C:\x"

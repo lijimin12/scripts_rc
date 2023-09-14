@@ -111,6 +111,8 @@ alias pg='g -nr --include="*.py" '
 alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
 # exlude 'build'
 alias gnb='grep --exclude-dir="build"'
+# grep: warning: GREP_OPTIONS is deprecated; please use an alias or script
+# export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
 
 # git
 alias gitnp='git --no-pager'
@@ -146,7 +148,6 @@ bind 'set bell-style none'
 bind '"\C-d": kill-word'	# forward, i.e. right to cursor
 
 export EDITOR='vim'
-export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
 
 # find . -name
 f.n ()
