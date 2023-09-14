@@ -202,16 +202,21 @@ rmpwd() {
 }
 
 # two command formats supported:
-# ca FILENAME [LINENUMBER [CONTEXT=2]]
-# ca FILENAME:[LINENUMBER:[CONTEXT=2]]
+# ca FILENAME [LINENUMBER [CONTEXT=3]]
+# ca FILENAME:[LINENUMBER:[CONTEXT=3]]
 ca () {
-	if [ $# -eq 0 ]; then echo 'Usage: ca FILENAME [LINENUMBER [CONTEXT=3]]'; return; fi
+	if [ $# -eq 0 ]; then
+        echo 'Usage: '
+        echo '  ca FILENAME [LINENUMBER [CONTEXT=3]]';
+        echo '  ca FILENAME:[LINENUMBER:[CONTEXT=3]]';
+        return;
+    fi
 	# if [ $# -eq 1 ]; then cat "$1"; return; fi
     if [ $# -eq 1 ]; then
-        # cat "$1";
         # $1 might be "/path/to/file[:1[:2]]"
         source <(echo "$1" | awk 'BEGIN { FS="[: \t|]" } {print "x="$1";", "y="$2";", "z="$3";"}')
         if [ "$y" = "" ]; then
+            # no :linenumber[:context] provided
             cat "$1";
             return;
         else
