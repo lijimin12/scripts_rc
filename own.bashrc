@@ -60,10 +60,11 @@ fi
 
 
 # single char aliases
+# get a b c x y z reserved
 # dir
 alias ..='cd ..'
 alias ...='cd ../..'
-alias b='cd -'  # go back
+# alias b='cd -'  # go back
 alias p='pwd'
 
 alias h='history'
@@ -200,12 +201,31 @@ rmpwd() {
     fi
 }
 
+# two command formats supported:
 # ca FILENAME [LINENUMBER [CONTEXT=2]]
+# ca FILENAME:[LINENUMBER:[CONTEXT=2]]
 ca () {
-	if [ $# -eq 0 ]; then echo 'Usage: ca FILENAME [LINENUMBER [CONTEXT=2]]'; return; fi
-	if [ $# -eq 1 ]; then cat "$1"; return; fi
-	c=${3:-2}	# default context is 2
-	cat -n "$1" | head -$(($2 + $c)) | tail -$(($c * 2 + 1))
+	if [ $# -eq 0 ]; then echo 'Usage: ca FILENAME [LINENUMBER [CONTEXT=3]]'; return; fi
+	# if [ $# -eq 1 ]; then cat "$1"; return; fi
+    if [ $# -eq 1 ]; then
+        # cat "$1";
+        # $1 might be "/path/to/file[:1[:2]]"
+        source <(echo "$1" | awk 'BEGIN { FS="[: \t|]" } {print "x="$1";", "y="$2";", "z="$3";"}')
+        if [ "$y" = "" ]; then
+            cat "$1";
+            return;
+        else
+            filepath=${x}
+            line=${y}
+            c=${z:-3}
+        fi
+    else
+        # $# = 2 or 3
+        filepath=${1}
+        line=${2}
+	    c=${3:-3}	# default context is 3
+    fi
+	cat -n "$filepath" | head -$(($line + $c)) | tail -$(($c * 2 + 1))
 }
 
 # as a notice to user
