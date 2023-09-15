@@ -74,6 +74,8 @@ alias what='type'
 # w not alias
 
 alias al='alias'
+# list alias and functions
+alias alf="(declare -F | awk '{print \$NF}' | sort | egrep -v '^_' ; alias | awk '{print \$2}') | sort"
 
 # alias vi="vim"
 # other single char aliases (f, g etc.) are defined below
@@ -164,7 +166,7 @@ f.nf ()
 
 # find file
 ff() {
-    find ${1} -not -path '*/.*' -not -type d -print
+    find '*'${1}'*' -not -path '*/.*' -not -type d -print
 }
 
 # find excluding build folder
@@ -260,6 +262,7 @@ alias lk='cd ~/wsp_nvme0/linux_torvalds'
 # NOTE: ctl-a + ctl-x to quit picocom
 alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
 
+# to take most likely needed options
 # human readable
 alias free='free -h'
 alias df='df -Th'
@@ -267,6 +270,7 @@ alias lsblk='lsblk --fs'
 # time-stamp
 alias dmesg='dmesg -T'
 alias ss='ss -4ap'  # ipv4, all, process
+alias pgrep='pgrep -ia' # grep process via name
 
 # insert individual projects alias etc.
 # 

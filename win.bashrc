@@ -21,7 +21,7 @@ f.n ()
 {
 	if [ $# -ne 1 ]; then echo 'Usage: f.n FILENAME_PATTERN'; return; fi
     # find . -iname '*'${1}'*' -not -path '*/.*' -print
-    find . -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | clip
+    find . -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
 }
 alias f='f.n'
 
@@ -30,8 +30,9 @@ mf ()
 {
 	if [ $# -ne 1 ]; then echo 'Usage: mf FILENAME_PATTERN'; return; fi
     # ${1%.md} is to remove file extention name
-    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print | tee /dev/stderr | clip
+    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
 }
+alias fm=mf
 
 # grep in .md markdown notes
 # alias mg='g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
@@ -45,13 +46,14 @@ function mg ()
     # set +x
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
+alias gm=mg
 
 # find RDC
 frdc ()
 {
 	if [ $# -ne 1 ]; then echo "Usage: $FUNCNAME FILENAME_PATTERN"; return; fi
     # ${1%.md} is to remove file extention name
-    find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | clip
+    find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
 }
 alias rdcf=frdc
 
