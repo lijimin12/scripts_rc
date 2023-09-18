@@ -111,6 +111,19 @@ alias pg='g -nr --include="*.py" '
 # linux kernel source grep = cg + excluding some folders
 # all archs except x86 excluded
 alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
+# linux kernel grep
+# use $* instead of $1 to support 'lgg -w pattern'
+lgg() {
+    # run it at the root of linux kernel source codes tree
+    if [[ $(basename `pwd`) =~ .*inux.*|.*INUX.*|.*ernel.*|.*ERNEL.* ]]; then
+        echo "in kernel source code root, go ahead"
+    else
+        echo "not in root kernel source code, exit"
+        return
+    fi
+    grep -nr --include={"*.c","*.S","*.h"} --exclude-dir={"sound","fs","drivers","Documentation","arch","crypto"} $* . ./arch/x86
+}
+
 # exlude 'build'
 alias gnb='grep --exclude-dir="build"'
 # grep: warning: GREP_OPTIONS is deprecated; please use an alias or script
