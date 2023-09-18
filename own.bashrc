@@ -114,8 +114,13 @@ alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"
 # linux kernel grep
 # use $* instead of $1 to support 'lgg -w pattern'
 lgg() {
+
+	if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+        echo "Usage: $FUNCNAME PATTERN; $FUNCNAME -w PATTERN"
+        return
+    fi
     # run it at the root of linux kernel source codes tree
-    if [[ $(basename `pwd`) =~ .*inux.*|.*INUX.*|.*ernel.*|.*ERNEL.* ]]; then
+    if [[ $(basename `pwd`) =~ .*(inux|INUX|ernel|ERNEL).* ]]; then
         echo "in kernel source code root, go ahead"
     else
         echo "not in root kernel source code, exit"
