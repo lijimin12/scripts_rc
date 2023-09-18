@@ -75,7 +75,8 @@ alias what='type'
 
 alias al='alias'
 # list alias and functions
-alias alf="(declare -F | awk '{print \$NF}' | sort | egrep -v '^_' ; alias | awk '{print \$2}') | sort"
+#alias alf="(declare -F | awk '{print \$NF}' | sort | egrep -v '^_' ; alias | awk '{print \$2}') | sort"
+alias alf="(declare -F | awk '{print \$NF}' | sort | egrep -v '^_' ; alias | awk '{\$1="'""'"; \$0 = \$0; \$1 = \$1; print \$0}') | sort"
 
 # alias vi="vim"
 # other single char aliases (f, g etc.) are defined below
@@ -87,6 +88,9 @@ alias ls='ls --color=auto'  # as the default color mode is 'none'
 alias l='ls -F'     # e.g. append "/" to denote folder
 alias ll='ls -AlFh' # -A vs. -a
 alias la='ls -A'
+#alias lf="ls -l | grep -vE '^d|^l' | awk '{print $9}'"
+alias ld="ls -l | grep ^d | awk '{print $9,$10}"     # list directories
+alias lf="ls -l | grep ^- | awk '{print $9,$10}"     # list regular files
 # reversely time sorted
 alias llrt='ll -rt'
 # sort by file size
@@ -95,7 +99,8 @@ alias llsz='llsize'
 # list only .* hidden files and directories
 alias l.='ls -d .*'
 # list only .* hidden files
-alias l.f="ls -dl .* | grep -v '^d' | awk '{print \$9}'"
+alias l.f="ls -dl .* | grep -v '^d' | awk '{print \$9,\$10}'"
+alias l.d="ls -dl .* | grep '^d' | awk '{print \$9,\$10}'"
 
 # grep aliases
 alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
