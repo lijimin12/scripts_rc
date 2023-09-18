@@ -89,8 +89,8 @@ alias l='ls -F'     # e.g. append "/" to denote folder
 alias ll='ls -AlFh' # -A vs. -a
 alias la='ls -A'
 #alias lf="ls -l | grep -vE '^d|^l' | awk '{print $9}'"
-alias ld="ls -l | grep ^d | awk '{print \$9,\$10}"     # list directories
-alias lf="ls -l | grep ^- | awk '{print \$9,\$10}"     # list regular files
+alias ld="ls -l | grep ^d | awk '{print \$9,\$10}'"     # list directories
+alias lf="ls -l | grep ^- | awk '{print \$9,\$10}'"     # list regular files
 # reversely time sorted
 alias llrt='ll -rt'
 # sort by file size
