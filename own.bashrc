@@ -89,18 +89,18 @@ alias l='ls -F'     # e.g. append "/" to denote folder
 alias ll='ls -AlFh' # -A vs. -a
 alias la='ls -A'
 #alias lf="ls -l | grep -vE '^d|^l' | awk '{print $9}'"
-alias ld="ls -l | grep ^d | awk '{print \$9,\$10}'"     # list directories
-alias lf="ls -l | grep ^- | awk '{print \$9,\$10}'"     # list regular files
+# for links, $10 would be "->"
+alias ld="ls -l | grep -E '^d|^l' | awk '{print \$9,\$10}' | column"     # list directories
+alias lf="ls -l | grep -E '^-|^l' | awk '{print \$9,\$10}' | column"     # list regular files
 # reversely time sorted
 alias llrt='ll -rt'
 # sort by file size
 alias llsize='ll -rSh'
 alias llsz='llsize'
-# list only .* hidden files and directories
+# list only .* hidden files and or directories
 alias l.='ls -d .*'
-# list only .* hidden files
-alias l.f="ls -dl .* | grep -v '^d' | awk '{print \$9,\$10}'"
-alias l.d="ls -dl .* | grep '^d' | awk '{print \$9,\$10}'"
+alias l.f="ls -dl .* | grep -E '^-|^l' | awk '{print \$9,\$10}'"
+alias l.d="ls -dl .* | grep -E '^d|^l' | awk '{print \$9,\$10}'"
 
 # grep aliases
 alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
@@ -187,9 +187,11 @@ f.nf ()
     find . -name ${1} -not -path '*/.*' -print
 }
 
-# find file
-ff() {
-    find '*'${1}'*' -not -path '*/.*' -not -type d -print
+# find files in .
+# f.f
+# f.f -iname NAME
+f.f() {
+    find . -not -path '*/.*' -not -type d $* -print
 }
 
 # find excluding build folder
