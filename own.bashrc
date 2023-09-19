@@ -120,7 +120,7 @@ alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"
 # use $* instead of $1 to support 'lgg -w pattern'
 lgg() {
 
-	if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
         echo "Usage: $FUNCNAME PATTERN; $FUNCNAME -w PATTERN"
         return
     fi
@@ -174,9 +174,15 @@ bind '"\C-d": kill-word'	# forward, i.e. right to cursor
 
 export EDITOR='vim'
 
+# hardly remember those defined find functions. it serves as examples and can check them online with type command.
 # find . -name
 f.n ()
 {
+    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+        echo "find . -name"
+        echo "Usage: $FUNCNAME PARTIAL_NAME"
+        return
+    fi
     find . -name '*'${1}'*' -not -path '*/.*' -print
 }
 alias f='f.n'
@@ -184,6 +190,11 @@ alias f='f.n'
 # find . -name fully
 f.nf ()
 {
+    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+        echo "find . -name"
+        echo "Usage: $FUNCNAME FULL_NAME"
+        return
+    fi
     find . -name ${1} -not -path '*/.*' -print
 }
 
@@ -191,16 +202,33 @@ f.nf ()
 # f.f
 # f.f -iname NAME
 f.f() {
+    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+        echo "find regular files in ."
+        echo "Usage: $FUNCNAME [ARGS]"
+        echo '$FUNCNAME -iname "hello.c"'
+        return
+    fi
     find . -not -path '*/.*' -not -type d $* -print
 }
 
 # find excluding build folder
 f.xb() {
+    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+        echo "find in ., excluding 'build' folder"
+        echo "Usage: $FUNCNAME ARGS"
+        echo '$FUNCNAME -iname "hello.c"'
+        return
+    fi
     find . -path '*/build' -prune -o $* -print
 }
 
 # alias mkcd='function mkcdf(){ mkdir "$1"; cd "$1"; }; mkcdf'
 mkcd() { 
+    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+        echo "Usage: $FUNCNAME DIRETORY_NAME"
+        return
+    fi
+
     mkdir -p "$1" && cd "$1" 
 }
 
@@ -233,7 +261,7 @@ rmpwd() {
 # ca FILENAME [LINENUMBER [CONTEXT=3]]
 # ca FILENAME:[LINENUMBER:[CONTEXT=3]]
 ca () {
-	if [ $# -eq 0 ]; then
+	if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
         echo 'Usage: '
         echo '  ca FILENAME [LINENUMBER [CONTEXT=3]]';
         echo '  ca FILENAME:[LINENUMBER:[CONTEXT=3]]';
@@ -262,7 +290,7 @@ ca () {
 }
 
 # as a notice to user
-echo 'alias/function(s):' 'f', 'g', 'mkcd', 'rmp', 'ca FILENAME LINENUMBER' 
+echo 'alias/function(s):' 'f', 'g', 'mkcd', 'rmp', 'ca FILENAME LINENUMBER CONTEXT' 
 
 ########################################
 
