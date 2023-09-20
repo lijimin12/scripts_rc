@@ -41,6 +41,12 @@ alias fm=mf
 # to grep "--color=auto", `mg -- --color=auto`
 function mg ()
 {
+	if [ $# -eq 0 ] || [ "$1" = '?' ]; then 
+        echo "Usage: $FUNCNAME ARGS"; 
+        echo -e "e.g.\t$FUNCNAME PATTERN";
+        echo -e "e.g.\t$FUNCNAME -w PATTERN";
+        return; 
+    fi
     # set -x
     g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w $* /c/x /c/my/tech /c/codes/Jimin-Z8
     # set +x
