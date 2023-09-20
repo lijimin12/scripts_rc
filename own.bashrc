@@ -120,7 +120,7 @@ alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"
 # use $* instead of $1 to support 'lgg -w pattern'
 lgg() {
 
-    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+    if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
         echo "Usage: $FUNCNAME PATTERN; $FUNCNAME -w PATTERN"
         return
     fi
@@ -178,7 +178,7 @@ export EDITOR='vim'
 # find . -name
 f.n ()
 {
-    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+    if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
         echo "find . -name"
         echo "Usage: $FUNCNAME PARTIAL_NAME"
         return
@@ -190,7 +190,7 @@ alias f='f.n'
 # find . -name fully
 f.nf ()
 {
-    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+    if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
         echo "find . -name"
         echo "Usage: $FUNCNAME FULL_NAME"
         return
@@ -202,7 +202,7 @@ f.nf ()
 # f.f
 # f.f -iname NAME
 f.f() {
-    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+    if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
         echo "find regular files in ."
         echo "Usage: $FUNCNAME [ARGS]"
         echo '$FUNCNAME -iname "hello.c"'
@@ -213,7 +213,7 @@ f.f() {
 
 # find excluding build folder
 f.xb() {
-    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+    if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
         echo "find in ., excluding 'build' folder"
         echo "Usage: $FUNCNAME ARGS"
         echo '$FUNCNAME -iname "hello.c"'
@@ -224,7 +224,7 @@ f.xb() {
 
 # alias mkcd='function mkcdf(){ mkdir "$1"; cd "$1"; }; mkcdf'
 mkcd() { 
-    if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+    if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
         echo "Usage: $FUNCNAME DIRETORY_NAME"
         return
     fi
@@ -261,7 +261,7 @@ rmpwd() {
 # ca FILENAME [LINENUMBER [CONTEXT=3]]
 # ca FILENAME:[LINENUMBER:[CONTEXT=3]]
 ca () {
-	if [ $# -eq 0 ] || [ "$1" = '?' ] ; then
+	if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
         echo 'Usage: '
         echo '  ca FILENAME [LINENUMBER [CONTEXT=3]]';
         echo '  ca FILENAME:[LINENUMBER:[CONTEXT=3]]';

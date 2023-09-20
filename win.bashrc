@@ -28,7 +28,10 @@ alias f='f.n'
 # find a markdown notes file, and put results into windows clipboard
 mf ()
 {
-	if [ $# -ne 1 ]; then echo 'Usage: mf FILENAME_PATTERN'; return; fi
+    if [ "$1" = '-h' ] || [ $# -ne 1 ] ; then 
+        echo "Usage: $FUNCNAME FILENAME_PATTERN"; 
+        return; 
+    fi
     # ${1%.md} is to remove file extention name
     find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
 }
@@ -41,7 +44,7 @@ alias fm=mf
 # to grep "--color=auto", `mg -- --color=auto`
 function mg ()
 {
-	if [ $# -eq 0 ] || [ "$1" = '?' ]; then 
+	if [ $# -eq 0 ] || [ "$1" = '-h' ]; then 
         echo "Usage: $FUNCNAME ARGS"; 
         echo -e "e.g.\t$FUNCNAME PATTERN";
         echo -e "e.g.\t$FUNCNAME -w PATTERN";
