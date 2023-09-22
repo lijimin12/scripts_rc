@@ -58,6 +58,17 @@ else
 echo "Windows_NT"
 fi
 
+#####################################
+# begin mark for public server. Just copy to public server the part from begin to end mark!
+# remove comments before paste?
+if [ "$OS" != "Windows_NT" ] && [ $USER != "lijimin1" ] ; then
+TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
+export PS1="${TITLEBAR}[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
+# need proxy as well in lab?
+export http_proxy="http://child-prc.intel.com:913"
+export https_proxy="http://child-prc.intel.com:913"
+export ftp_proxy="ftp://child-prc.intel.com:913/"
+fi
 
 # single char aliases
 # get a b c x y z reserved
@@ -81,7 +92,31 @@ alias alf="(declare -F | awk '{print \$NF}' | sort | egrep -v '^_' ; alias | awk
 # alias vi="vim"
 # other single char aliases (f, g etc.) are defined below
 
-alias vv='vimm.py'
+alias clr="clear && printf '\033[3J'"
+
+# word count dos '\r'
+alias wcdos="grep -cU $'\r'"
+# word count tab '\t'
+alias wctab="grep -cU $'\t'"
+
+alias path="printenv PATH | tr ':' '\n'"
+# alias path="printenv PATH | tr : '\n'"
+# alias paths='printenv PATH | sed -e '\''s/[Cc]:/\\C/g'\'' | sed -e '\''s/:/\n/g'\'
+# to support "C:\Programs" in gitbash
+alias paths="printenv PATH | sed -e 's/[Cc]:/\\\\C/g' | sed -e 's/:/\n/g'"
+
+# human readable
+alias free='free -h'
+alias df='df -Th'
+# time-stamp
+alias dmesg='sudo dmesg -T'
+
+# turn off bash bell
+bind 'set bell-style none'
+
+# ctrl-d to delete word
+# by default, ctrl-w to delete word backwardly
+bind '"\C-d": kill-word'	# forward, i.e. right to cursor
 
 # some more ls aliases
 alias ls='ls --color=auto'  # as the default color mode is 'none'
@@ -106,6 +141,10 @@ alias l.d="ls -dl .* | grep -E '^d|^l' | awk '{print \$9,\$10}'"
 alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
 # alias grep='grep -I --color=auto'
 alias g='grep -nr -i'
+
+# end mark for public server
+#####################################
+
 # grep recursively in c source files
 #alias cg='g -nr --include="*.c" --include="*.h"'
 alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
@@ -144,20 +183,9 @@ alias gitnp='git --no-pager'
 # list git aliases
 alias gital='git config -l  | grep ^alias'
 
-alias clr="clear && printf '\033[3J'"
-
 alias vimrc='vim ~/.bashrc'
+alias vv='vimm.py'
 
-# word count dos '\r'
-alias wcdos="grep -cU $'\r'"
-# word count tab '\t'
-alias wctab="grep -cU $'\t'"
-
-alias path="printenv PATH | tr ':' '\n'"
-# alias path="printenv PATH | tr : '\n'"
-# alias paths='printenv PATH | sed -e '\''s/[Cc]:/\\C/g'\'' | sed -e '\''s/:/\n/g'\'
-# to support "C:\Programs" in gitbash
-alias paths="printenv PATH | sed -e 's/[Cc]:/\\\\C/g' | sed -e 's/:/\n/g'"
 
 if [ "$OS" != "Windows_NT" ]; then
 # preserve environment
@@ -165,12 +193,6 @@ if [ "$OS" != "Windows_NT" ]; then
 alias sudo='sudo -E'
 fi
 
-# turn off bash bell
-bind 'set bell-style none'
-
-# ctrl-d to delete word
-# by default, ctrl-w to delete word backwardly
-bind '"\C-d": kill-word'	# forward, i.e. right to cursor
 
 export EDITOR='vim'
 
@@ -317,11 +339,7 @@ alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
 
 # to take most likely needed options
 # human readable
-alias free='free -h'
-alias df='df -Th'
 alias lsblk='lsblk --fs'
-# time-stamp
-alias dmesg='dmesg -T'
 alias ss='ss -4ap'  # ipv4, all, process
 alias pgrep='pgrep -ia' # grep process via name
 
