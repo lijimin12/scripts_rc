@@ -58,8 +58,10 @@ else
 echo "Windows_NT"
 fi
 
+
 #####################################
-# BEGINMARK for public server. Just copy to public server the part from begin to end mark!
+# beginmark for public server. 
+# Just copy to public server the part from begin to end marks!
 # remove comments before paste?
 if [ "$OS" != "Windows_NT" ] && [ $USER != "lijimin1" ] ; then
 TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
@@ -149,7 +151,7 @@ alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".re
 # alias grep='grep -I --color=auto'
 alias g='grep -nr -i'
 
-# ENDMARK for public server
+# endmark for public server
 #####################################
 
 # grep recursively in c source files
@@ -338,18 +340,6 @@ check_trailing_comments () {
 	# [:space:] cannot be replaced with \s
 	# can work on both Linux and windows gitbash
 	# sed -n  -e  '/[^[:space:]]\s\+#\s.*$/ p' own.bashrc
-}
-
-# extract pub server part from own.bashrc, trim comments, and save it in a new file
-extract_pub_server ()
-{
-    sourcefile=${1:-own.bashrc}
-    newfile=$sourcefile.pub.server
-    #echo $sourcefile
-    #echo $newfile
-    sed -n '/BEGINMARK/,/ENDMARK/p' $sourcefile > $newfile
-    sed -i '/BEGINMARK/,/ENDMARK/s/\s#\s.*$//' $newfile
-    sed -i '/BEGINMARK/,/ENDMARK/s/^\s*#.*$//' $newfile
 }
 
 # as a notice to user
