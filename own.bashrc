@@ -80,6 +80,7 @@ alias p='pwd'
 
 #alias h='history'
 alias h='history -a; history -c; history -r; history | tail -20'
+alias hh='history -a; history -c; history -r; history'  # full history
 alias v='vim'
 alias t='type'
 alias what='type'
