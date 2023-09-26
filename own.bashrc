@@ -1,4 +1,4 @@
-# This is my own bashrc shared by Linux and Windows
+# This is my own bashrc shared by my Linux and Windows, and public server
 # ~/own.bashrc
 # make ~/own.bashrc a symbol link to my downloaded Jimin-Z8 repo.
 
@@ -78,7 +78,8 @@ alias ...='cd ../..'
 # alias b='cd -'  # go back
 alias p='pwd'
 
-alias h='history'
+#alias h='history'
+alias h='history -a; history -c; history -r; history | tail -20'
 alias v='vim'
 alias t='type'
 alias what='type'
@@ -110,6 +111,8 @@ alias free='free -h'
 alias df='df -Th'
 # time-stamp
 alias dmesg='sudo dmesg -T'
+alias where='whereis'
+alias du1='du -h --max-depth=1 | sort -rh'
 
 # turn off bash bell
 bind 'set bell-style none'
@@ -117,6 +120,9 @@ bind 'set bell-style none'
 # ctrl-d to delete word
 # by default, ctrl-w to delete word backwardly
 bind '"\C-d": kill-word'	# forward, i.e. right to cursor
+bind '"\eOC": forward-word'
+bind '"\eOD": backward-word'
+
 
 # some more ls aliases
 alias ls='ls --color=auto'  # as the default color mode is 'none'
@@ -195,6 +201,13 @@ fi
 
 
 export EDITOR='vim'
+
+# history
+shopt -s histappend                      # append to history, don't overwrite it
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export HISTSIZE=1000   # default is 1000
+export HISTFILESIZE=2000
+HISTCONTROL=ignoreboth
 
 # hardly remember those defined find functions. it serves as examples and can check them online with type command.
 # find . -name
@@ -285,8 +298,8 @@ rmpwd() {
 ca () {
 	if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
         echo 'Usage: '
-        echo '  ca FILENAME [LINENUMBER [CONTEXT=3]]';
-        echo '  ca FILENAME:[LINENUMBER:[CONTEXT=3]]';
+        echo "  $FUNCNAME FILENAME [LINENUMBER [CONTEXT=3]]";
+        echo "  $FUNCNAME FILENAME:[LINENUMBER:[CONTEXT=3]]";
         return;
     fi
 	# if [ $# -eq 1 ]; then cat "$1"; return; fi
@@ -309,6 +322,21 @@ ca () {
 	    c=${3:-3}	# default context is 3
     fi
 	cat -n "$filepath" | head -$(($line + $c)) | tail -$(($c * 2 + 1))
+}
+
+# check trailing comments in a file
+check_trailing_comments () {
+	if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
+        echo "Usage: $FUNCNAME FILENAME";
+        return;
+    fi
+
+	# grep '#' "$*" | grep -v '^\s*#'  | grep '\s#'
+	grep -nv '^\s*#' "$*" | grep '\s#'
+    # grep -n '[^[:space:]]\s\+#'
+	# [:space:] cannot be replaced with \s
+	# can work on both Linux and windows gitbash
+	# sed -n  -e  '/[^[:space:]]\s\+#\s.*$/ p' own.bashrc
 }
 
 # extract pub server part from own.bashrc, trim comments, and save it in a new file

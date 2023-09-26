@@ -48,7 +48,7 @@ function mg ()
         echo "Usage: $FUNCNAME ARGS"; 
         echo -e "e.g.\t$FUNCNAME PATTERN";
         echo -e "e.g.\t$FUNCNAME -w PATTERN";
-        echo "DONT include blank space in PATTERN, user \s instead, such as mg 'foo\s\+bar', double-quote ok as well"
+        echo "DONT include blank space in PATTERN, user \s instead, such as mg 'foo\s\+bar', mg 'ip\scommand', double-quote ok as well"
         return; 
     fi
     # set -x
