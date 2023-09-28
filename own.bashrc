@@ -63,7 +63,8 @@ fi
 # beginmark for public server. 
 # Just copy to public server the part from begin to end marks!
 # remove comments before paste?
-if [ "$OS" != "Windows_NT" ] && [ $USER != "lijimin1" ] ; then
+# if [ -f ~/.bashrc.x ]; souce ~/.bashrc.x ; fi
+if [ "$OS" != "Windows_NT" ] && [ "$http_proxy" == "" ] ; then
 TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
 export PS1="${TITLEBAR}[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 # need proxy as well in lab?
@@ -71,6 +72,13 @@ export http_proxy="http://child-prc.intel.com:913"
 export https_proxy="http://child-prc.intel.com:913"
 export ftp_proxy="ftp://child-prc.intel.com:913/"
 fi
+
+# history
+HISTCONTROL=ignoreboth
+shopt -s histappend     # append to history, don't overwrite it
+export HISTSIZE=1000    # default is 1000
+export HISTFILESIZE=2000
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # single char aliases
 # get a b c x y z reserved
@@ -108,6 +116,7 @@ alias path="printenv PATH | tr ':' '\n'"
 # alias paths='printenv PATH | sed -e '\''s/[Cc]:/\\C/g'\'' | sed -e '\''s/:/\n/g'\'
 # to support "C:\Programs" in gitbash
 alias paths="printenv PATH | sed -e 's/[Cc]:/\\\\C/g' | sed -e 's/:/\n/g'"
+alias ldpath="printenv LD_LIBRARY_PATH | tr ':' '\n'"
 
 # human readable
 alias free='free -h'
@@ -205,12 +214,6 @@ fi
 
 export EDITOR='vim'
 
-# history
-shopt -s histappend                      # append to history, don't overwrite it
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-export HISTSIZE=1000   # default is 1000
-export HISTFILESIZE=2000
-HISTCONTROL=ignoreboth
 
 # hardly remember those defined find functions. it serves as examples and can check them online with type command.
 # find . -name
