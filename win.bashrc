@@ -63,9 +63,13 @@ frdc ()
 {
 	if [ $# -ne 1 ]; then echo "Usage: $FUNCNAME FILENAME_PATTERN"; return; fi
     # ${1%.md} is to remove file extention name
-    find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
+    x=$(find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip)
+    if [ "$x" = "" ] ; then
+        echo "not found"
+    fi
 }
 alias rdcf=frdc
+alias rdc='frdc'
 
 # open pdf
 # only one argument: $1 RDC#
@@ -81,7 +85,7 @@ opdf ()
     count=$(echo -n "$r" | wc -l)
     # echo $count
     if [ -n "$r" ] && [ $count == 0 ] ; then
-        AcroRd32.exe "$r"
+        AcroRd32.exe "$r" &
         # echo do_open
     else
         # print found rdc files
@@ -93,6 +97,7 @@ alias rdco=ordc
 
 # cd certain folder
 alias hub='cd /c/codes/Jimin-Z8/Scripts'
+alias z8='hub'
 
 # gitbash special, invalid on Linux
 #alias npp='/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe'
