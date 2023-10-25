@@ -39,14 +39,9 @@ if [ "$TERM" = screen ]; then
 # screen goes here
 TITLEBAR='\[\033]0;[screen] \u@\h $(hostname -I) \w\007\]'
 fi
-export PS1="${TITLEBAR}[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
+# add \n to insert a new line
+export PS1="${TITLEBAR}\n[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 export PROMPT_DIRTRIM=2
-
-
-# export HISTTIMEFORMAT="%F %T "
-# %F means YYYY-MM-DD
-# %y/%m/%d
-export HISTTIMEFORMAT="%m/%d %T "
 
 #export PATH=~/bin:~/.local/bin:$PATH
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
@@ -79,6 +74,12 @@ shopt -s histappend     # append to history, don't overwrite it
 export HISTSIZE=1000    # default is 1000
 export HISTFILESIZE=2000
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# export HISTTIMEFORMAT="%F %T "
+# %F means YYYY-MM-DD
+# %y/%m/%d
+export HISTTIMEFORMAT="%m/%d %T "
+
 
 # single char aliases
 # get a b c x y z reserved
@@ -123,6 +124,8 @@ alias free='free -h'
 alias df='df -Th'
 # time-stamp
 alias dmesg='sudo dmesg -T'
+alias dmsg='dmesg'
+alias dmsgerr='dmesg --level=err'
 alias where='whereis'
 alias du1='du -h --max-depth=1 | sort -rh'
 
@@ -158,7 +161,9 @@ alias l.d="ls -dl .* | grep -E '^d|^l' | awk '{print \$9,\$10}'"
 # grep aliases
 alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
 # alias grep='grep -I --color=auto'
-alias g='grep -nr -i'
+alias g='grep -nr -i -s'
+# -s, --no-messages
+# Suppress error messages about nonexistent or unreadable files.
 
 # endmark for public server
 #####################################
@@ -364,9 +369,8 @@ fi
 
 if [ "$OS" != "Windows_NT" ]; then
 
-# go to certain folder
-#alias lk='cd ~/wsp/linux_kernel'
-alias lk='cd ~/wsp_nvme0/linux_torvalds'
+# go to certain folders
+# alias lk='cd ~/wsp_nvme0/linux_torvalds'
 
 # NOTE: ctl-a + ctl-x to quit picocom
 alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
