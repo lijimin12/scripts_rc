@@ -12,6 +12,7 @@
 # avoid duplication in own.bashrc and own.bashrc.extra
 
 if [ "$OS" != "Windows_NT" ]; then
+echo ""
 echo "NOT Windows_NT"
 export http_proxy="http://child-prc.intel.com:913"
 export https_proxy="http://child-prc.intel.com:913"
