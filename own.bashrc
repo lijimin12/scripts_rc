@@ -28,11 +28,12 @@ if [ "$TERM" = xterm ]; then
 # putty goes here
 # note: if TITLEBAR is empty, then putty will show "IP - PuTTY" as the window title by default
 # note: \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
-TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
+# hostname -I | grep -o "\<10\.[0-9]*\.[0-9]*\.[0-9]*"
+TITLEBAR='\[\033]0;\u@\h $(hostname -I | grep -o "\<10\.[0-9]*\.[0-9]*\.[0-9]*") \w\007\]'
 fi
 # ubuntu Terminal GUI xterm-256color
 case "$TERM" in
-    xterm*)
+    xterm-*)
     TITLEBAR='\[\033]0;\u@\h \w\007\]'
     ;;
 esac
