@@ -25,7 +25,7 @@ export ftp_proxy="ftp://child-prc.intel.com:913/"
 # title and prompt
 TITLEBAR=""
 if [ "$TERM" = xterm ]; then
-# putty goes here
+# putty and gitbash both go here
 # note: if TITLEBAR is empty, then putty will show "IP - PuTTY" as the window title by default
 # note: \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
 # hostname -I | grep -o "\<10\.[0-9]*\.[0-9]*\.[0-9]*"

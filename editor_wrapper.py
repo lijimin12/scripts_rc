@@ -63,25 +63,26 @@ def mk_cmd_str(editor, filename, lineno=""):
             # filename = filename[2:] can work as well
             #print("after remove /c, {}".format(filename))
 
+    # filename may contain blanks, thus has to be inside ""
     if (editor == 'vim' or editor == "vi"):
         is_vim = 1
-        command = "vim " + filename
+        command = "vim " + '"' + filename + '"'
         if (lineno != ""):
             command += " +" + lineno
     elif (editor == 'gvim'):
         is_gvim = 1
-        command = "gvim " + filename
+        command = "gvim " + '"' + filename + '"'
         if (lineno != ""):
             command += " +" + lineno
     elif (editor == 'code'):
         is_vscode = 1
         # `code --goto file:line`
-        command = "code --goto " + filename 
+        command = "code --goto " + '"' + filename + '"'
         if (lineno != ""):
             command += ":" + lineno
     elif (editor == 'npp'):
         is_npp = 1
-        command = "notepad++.exe " + filename 
+        command = "notepad++.exe " + '"' + filename + '"'
         if (lineno != ""):
             command += " -n" + lineno
     else:
@@ -134,17 +135,18 @@ if (sys.argv[1] == '--help' or sys.argv[1] == '-h'):
 editor = sys.argv[1]
 filename_line=sys.argv[2]
 #print(filename_line)
-#print("editor: {}".format(editor))
-#print("filename_line: {}".format(filename_line))
+print("editor: {}".format(editor))
+print("filename_line: {}".format(filename_line))
 
 # filename_line not a good var name as it misleading it contains filename and line number both
 
+'''
 # trim stuff after blank space
 first_blank=filename_line.find(' ')
 if (-1 != first_blank):
     filename_line = filename_line[:first_blank]
-
-# trim suffixing :
+'''
+# trim suffixing colon(:)
 if filename_line[-1] == ':':
     filename_line = filename_line[:-1]
     #filename_line[-1] = ' '
@@ -175,7 +177,9 @@ else:
     filename = filename_line    # no line number provided
     lineno = ""
     
-
+#print("filename_line: {}".format(filename_line))
+#print("filename: {}".format(filename))
+#print("lineno: {}".format(lineno))
 command = mk_cmd_str(editor, filename, lineno)
 #print(command)
 if (command == ""):
