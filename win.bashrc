@@ -37,6 +37,16 @@ mf ()
 }
 alias fm=mf
 
+# find .md and .txt files modified in last 1 day
+alias mf1='find /c/my /c/codes/Jimin-Z8 /c/x -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -1 -exec stat --printf="%y %n\n" {} \; | sort'
+# last 3 days
+alias mf3='find /c/my /c/codes/Jimin-Z8 /c/x -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -3 -exec stat --printf="%y %n\n" {} \; | sort'
+# last 1 week (7 days)
+alias mf7='find /c/my /c/codes/Jimin-Z8 /c/x -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -7 -exec stat --printf="%y %n\n" {} \; | sort'
+# current workday (12 hours)
+alias mftoday='find /c/my /c/codes/Jimin-Z8 /c/x -type f \( -iname "*.md" -o -iname "*.txt" \) -mmin -720 -exec stat --printf="%y %n\n" {} \; | sort'
+
+
 # grep in .md markdown notes
 # alias mg='g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
 # grep in certain folders rather than pwd
@@ -58,14 +68,34 @@ function mg ()
 }
 alias gm=mg
 
+# example, `mgsection gitbash`
+function mgsection ()
+{
+    # copied, possible edit needed
+	if [ $# -eq 0 ] || [ "$1" = '-h' ]; then 
+        echo "Usage: $FUNCNAME ARGS"; 
+        echo -e "e.g.\t$FUNCNAME PATTERN";
+        echo -e "e.g.\t$FUNCNAME -w PATTERN";
+        echo "DONT include blank space in PATTERN, user \s instead, such as mg 'foo\s\+bar', mg 'ip\scommand', double-quote ok as well"
+        return; 
+    fi
+
+    mg '^#' | grep $*
+}
+
+
 # find RDC
 frdc ()
 {
 	if [ $# -ne 1 ]; then echo "Usage: $FUNCNAME FILENAME_PATTERN"; return; fi
     # ${1%.md} is to remove file extention name
-    x=$(find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip)
+    #x=$(find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip)    # clip impacts whole command result value
+    x=$(find /c/x /c/Users/jiminli/Downloads -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1)
+    #echo "$x"
     if [ "$x" = "" ] ; then
         echo "not found"
+    else
+        echo "$x" | clip
     fi
 }
 alias rdcf=frdc
@@ -95,9 +125,15 @@ opdf ()
 alias ordc=opdf
 alias rdco=ordc
 
-# cd certain folder
-alias hub='cd /c/codes/Jimin-Z8/Scripts'
+# cd certain folder on Windows Laptop
+alias hub='cd /c/codes/Jimin-Z8/'
 alias z8='hub'
+alias z8notes='cd /c/codes/Jimin-Z8/notes'
+alias z8scripts='cd /c/codes/Jimin-Z8/scripts'
+alias x='cd /c/x/'
+alias xnotes='cd /c/x/my_x_notes'
+# linux codes tree
+alias lk='cd /c/codes/linux-6.6/linux-6.6_unzipped'
 
 # gitbash special, invalid on Linux
 #alias npp='/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe'
@@ -127,9 +163,12 @@ ex () {
 }
 
 # as a notice to user
-echo 'alias/function(s):' 'ex', 'mf FILENAME', 'mg STRING', 'rdcf RDC#', 'rdco RDC#', 'vv|vs|np' 
+echo 'alias/function(s):' 'ex', 'mf FILENAME', 'mftoday', 'mg STRING', 'mgsection SECTION_NAME', 'rdcf RDC#', 'rdco RDC#', 'vv|vs|np' 
 
 #cd /c/x
 # use instead "C:\Program Files\Git\git-bash.exe" --cd="C:\x"
+
+# .md cyan color
+export LS_COLORS="$LS_COLORS:*.md=36"
 
 echo "Jimin-Z8\win.bashrc sourced"

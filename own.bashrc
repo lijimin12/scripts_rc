@@ -62,14 +62,16 @@ fi
 # remove comments before paste?
 # if [ -f ~/.bashrc.x ]; souce ~/.bashrc.x ; fi
 if [ "$OS" != "Windows_NT" ] && [ "$http_proxy" == "" ] ; then
+# inside this if clause are server specific 
 TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
-export PS1="${TITLEBAR}[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
+export PS1="${TITLEBAR}\n[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 # need proxy as well in lab?
 export http_proxy="http://child-prc.intel.com:913"
 export https_proxy="http://child-prc.intel.com:913"
 export ftp_proxy="ftp://child-prc.intel.com:913/"
 fi
 
+# below are shared by server and PC
 # history
 HISTCONTROL=ignoreboth
 shopt -s histappend     # append to history, don't overwrite it
@@ -80,7 +82,8 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # export HISTTIMEFORMAT="%F %T "
 # %F means YYYY-MM-DD
 # %y/%m/%d
-export HISTTIMEFORMAT="%m/%d %T "
+# `who am i` can show the ip address of ssh client
+export HISTTIMEFORMAT="%m/%d %T `who am i` | "
 
 
 # single char aliases
@@ -166,15 +169,18 @@ alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".re
 alias g='grep -nr -i -s'
 # -s, --no-messages
 # Suppress error messages about nonexistent or unreadable files.
+alias fgrep='fgrep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
 
-# endmark for public server
-#####################################
-
+# on server, sometimes we also need grep .c and .py files
 # grep recursively in c source files
 #alias cg='g -nr --include="*.c" --include="*.h"'
 alias cg='g -nr --include="*.c" --include="*.cpp" --include="*.S" --include="*.h"'
 # python grep
 alias pg='g -nr --include="*.py" '
+
+# endmark for public server
+#####################################
+
 # search text files (.txt .md)
 #alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
 # linux kernel source grep = cg + excluding some folders
@@ -382,6 +388,7 @@ alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
 alias lsblk='lsblk --fs'
 alias ss='ss -4ap'  # ipv4, all, process
 alias pgrep='pgrep -ia' # grep process via name
+alias lsb_release='lsb_release -a'
 
 # insert individual projects alias etc.
 # 
