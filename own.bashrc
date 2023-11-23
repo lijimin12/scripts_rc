@@ -77,7 +77,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend     # append to history, don't overwrite it
 export HISTSIZE=1000    # default is 1000
 export HISTFILESIZE=2000
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+#export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a && history -c && history -r; $PROMPT_COMMAND"
 
 # export HISTTIMEFORMAT="%F %T "
 # %F means YYYY-MM-DD
