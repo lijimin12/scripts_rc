@@ -7,6 +7,7 @@ pub_aliases ()
     newfile=$sourcefile.pub.server
     echo "sourcefile: $sourcefile"
     echo "targetfile: $newfile"
+    rm -f $newfile
     sed -n '/beginmark/,/endmark/p' $sourcefile > $newfile
     cp $newfile $newfile.1
     sed -i '/beginmark/,/endmark/s/\s\+#\s.*$//' $newfile
