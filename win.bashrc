@@ -172,3 +172,15 @@ echo 'alias/function(s):' 'ex', 'mf FILENAME', 'mftoday', 'mg STRING', 'mgsectio
 export LS_COLORS="$LS_COLORS:*.md=36"
 
 echo "Jimin-Z8\win.bashrc sourced"
+
+# things put in windows ~/.bashrc
+# vim90 needs to be after $PATH
+#export PATH=/c/x/bin_tools/green/npp.7.8.bin.x64/:$PATH:"/c/Program Files (x86)/Vim/vim90/":"/c/Program Files (x86)/Foxit Software/Foxit PDF Reader":'C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\'
+#alias fox='FoxitPDFReader.exe" '
+#alias pdf='"AcroRd32.exe"'
+
+# after 'git push' to github, get beige do 'git pull'
+#alias beigepull='ssh lijimin1@beige.sh.intel.com "cd /home/lijimin1/my_repo/scripts; git pull"'
+#alias moro='ssh nex@nex-morocity.sh.intel.com'
+#alias archer='ssh pae@pae-archercity.sh.intel.com'
+#alias editvsmd='code "C:\Users\jiminli\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\markdown-basics\language-configuration.json"'

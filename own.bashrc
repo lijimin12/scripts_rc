@@ -62,30 +62,33 @@ fi
 # remove comments before paste?
 # if [ -f ~/.bashrc.x ]; souce ~/.bashrc.x ; fi
 if [ "$OS" != "Windows_NT" ] && [ "$http_proxy" == "" ] ; then
+# if $http_proxy set already, it means this own.bashrc used as a whole one, thus this if block doesn't need to run
 # inside this if clause are server specific 
-TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
-export PS1="${TITLEBAR}\n[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 # need proxy as well in lab?
 export http_proxy="http://child-prc.intel.com:913"
 export https_proxy="http://child-prc.intel.com:913"
 export ftp_proxy="ftp://child-prc.intel.com:913/"
+
+TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
+export PS1="${TITLEBAR}\n[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
 fi
 
 # below are shared by server and PC
 # history
-HISTCONTROL=ignoreboth
+# HISTCONTROL=ignoreboth
+unset HISTCONTROL
 shopt -s histappend     # append to history, don't overwrite it
 export HISTSIZE=1000    # default is 1000
 export HISTFILESIZE=2000
-#export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-export PROMPT_COMMAND="history -a && history -c && history -r; $PROMPT_COMMAND"
-
 # export HISTTIMEFORMAT="%F %T "
 # %F means YYYY-MM-DD
 # %y/%m/%d
 # `who am i` can show the ip address of ssh client
-export HISTTIMEFORMAT="%m/%d %T `who am i` | "
-
+#export HISTTIMEFORMAT="%m/%d %T `who am i` | "
+export HISTTIMEFORMAT="%m/%d %T "
+#export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+#export PROMPT_COMMAND="history -a && history -c && history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
 # single char aliases
 # get a b c x y z reserved
@@ -97,7 +100,7 @@ alias p='pwd'
 
 #alias h='history'
 alias h='history -a; history -c; history -r; history | tail -20'
-alias hh='history -a; history -c; history -r; history'  # full history
+alias hh='history -a; history -c; history -r; history' # full history
 alias v='vim'
 alias t='type'
 alias what='type'
@@ -132,6 +135,7 @@ alias df='df -Th'
 alias dmesg='sudo dmesg -T'
 alias dmsg='dmesg'
 alias dmsgerr='dmesg --level=err'
+alias derr=dmsgerr
 alias where='whereis'
 alias du1='du -h --max-depth=1 | sort -rh'
 
