@@ -14,8 +14,10 @@ pub_aliases ()
     cp $newfile $newfile.2
     sed -i '/beginmark/,/endmark/s/^\s*#.*$//' $newfile
     chmod -w $newfile
-    echo "TODO: scp own.bashrc.pub.server pae@pae-archercity.sh.intel.com:~/.bashrc.pub.server"
-    # scp own.bashrc.pub.server pae@pae-archercity.sh.intel.com:~/.bashrc.pub.server
+    echo "TODO: "
+    echo "  on server, rm -f ~/.bashrc.pub.server*"
+    echo "  in gitbash, scp own.bashrc.pub.server pae@pae-archercity.sh.intel.com:~/.bashrc.pub.server"
+    echo "  on server, md5sum ~/.bashrc.pub.server > ~/.bashrc.pub.server.md5"
 }
 
 echo "pub_aliases() defined"
