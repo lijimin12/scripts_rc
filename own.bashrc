@@ -60,7 +60,7 @@ fi
 # beginmark for public server. 
 # Just copy to public server the part from begin to end marks!
 # remove comments before paste?
-# if [ -f ~/.bashrc.x ]; souce ~/.bashrc.x ; fi
+# if [ -f ~/.bashrc.pub.server ]; souce ~/.bashrc.pub.server ; fi
 if [ "$OS" != "Windows_NT" ] && [ "$http_proxy" == "" ] ; then
 # if $http_proxy set already, it means this own.bashrc used as a whole one, thus this if block doesn't need to run
 # inside this if clause are server specific 
