@@ -102,9 +102,11 @@ alias p='pwd'
 #alias h='history -a; history -c; history -r; history | tail -20'
 # we hope type h in console a can show commands just excuted in console b of the same user
 # history -n doesn't work as expected.
-alias h='history -c ; history -r; history 20'
+#alias h='history -c ; history -r; history 20'
+alias h='history 20'
 #alias hh='history -a; history -c; history -r; history' # full history
-alias hh='history -c; history -r; history' # full history
+#alias hh='history -c; history -r; history' # full history
+alias hh='history' # full history
 alias v='vim'
 alias t='type'
 alias what='type'
