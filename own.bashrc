@@ -89,6 +89,7 @@ export HISTTIMEFORMAT="%m/%d %T "
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 export PROMPT_COMMAND="history -a && history -c && history -r; $PROMPT_COMMAND"
 # export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND" not work
+# NOTE: `history -c` would look like not working, as PROMPT_COMMAND refills the history buffer from HISTFILE
 
 # single char aliases
 # get a b c x y z reserved
