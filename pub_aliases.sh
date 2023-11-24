@@ -8,11 +8,18 @@ pub_aliases ()
     echo "sourcefile: $sourcefile"
     echo "targetfile: $newfile"
     rm -f $newfile
+    # extract range
     sed -n '/beginmark/,/endmark/p' $sourcefile > $newfile
     cp $newfile $newfile.1
+    # trim line-end comments
     sed -i '/beginmark/,/endmark/s/\s\+#\s.*$//' $newfile
     cp $newfile $newfile.2
+    # trim comment lines
     sed -i '/beginmark/,/endmark/s/^\s*#.*$//' $newfile
+    cp $newfile $newfile.3
+    # delete blank lines
+    sed -i '/^$/d' $newfile
+
     chmod -w $newfile
     echo "TODO: "
     echo "  on server, rm -f ~/.bashrc.pub.server*"

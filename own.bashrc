@@ -11,10 +11,31 @@
 # own.bashrc.standard
 # avoid duplication in own.bashrc and own.bashrc.extra
 
+#####################################
+# beginmark for public server. 
+# Just copy to public server the part from begin to end marks!
+# remove comments before paste?
+# if [ -f ~/.bashrc.pub.server ]; souce ~/.bashrc.pub.server ; fi
+# if this own.bashrc used as a whole one, then _PLATFORM_FLAG != ""
+# inside this if clause are server specific 
+# 为什么在此处增加 PS1，这样文件中有重复两处设置了?
+# 上面有一堆条件判断是设置它，我希望 .bashrc.pub.server中不需要这些判断逻辑，而采用简单明了的方式
+# 该文件的使用方式：
+# 1. 在一般情况下（BEIGE, WINDOWS），整个文件不加修改地使用
+# 2. 在LINUX PUB SERVER上，提取服务器标记之间的内容
+# need proxy as well in lab?
+
+if [ "$OS" != "Windows_NT" ]; then
+# no need to set proxy on windows laptop
+export http_proxy="http://child-prc.intel.com:913"
+export https_proxy="http://child-prc.intel.com:913"
+export ftp_proxy="ftp://child-prc.intel.com:913/"
+#export no_proxy='localhost, 127.0.0.1, intel.com, .intel.com'
+fi
+
 if [ "$OS" != "Windows_NT" ]; then
 echo ""
-echo "NOT Windows_NT"
-_PLATFORM_FLAG="LINUX_GENERIC"
+# echo "NOT Windows_NT"
 
 # title and prompt
 TITLEBAR=""
@@ -24,6 +45,7 @@ if [ "$TERM" = xterm ]; then
 # note: \u - user, \h - hostname, \w - pwd, $(hostname -I) IP address
 # hostname -I | grep -o "\<10\.[0-9]*\.[0-9]*\.[0-9]*"
 TITLEBAR='\[\033]0;\u@\h $(hostname -I | grep -o "\<10\.[0-9]*\.[0-9]*\.[0-9]*") \w\007\]'
+#TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
 fi
 # ubuntu Terminal GUI xterm-256color
 case "$TERM" in
@@ -50,35 +72,6 @@ echo "Windows_NT"
 # In windows, i.e. gitbash, 
 # 1. we don't need to set PS1, as it's done by /etc/bash.bashrc
 # 2. we don'ts need to set proxy
-_PLATFORM_FLAG="WINDOWS_GITBASH"
-fi
-
-#####################################
-# beginmark for public server. 
-# Just copy to public server the part from begin to end marks!
-# remove comments before paste?
-# if [ -f ~/.bashrc.pub.server ]; souce ~/.bashrc.pub.server ; fi
-if [ "${_PLATFORM_FLAG}" == "" ]; then
-# if this own.bashrc used as a whole one, then _PLATFORM_FLAG != ""
-# inside this if clause are server specific 
-# 为什么在此处增加 PS1，这样文件中有重复两处设置了?
-# 上面有一堆条件判断是设置它，我希望 .bashrc.pub.server中不需要这些判断逻辑，而采用简单明了的方式
-# 该文件的使用方式：
-# 1. 在一般情况下（BEIGE, WINDOWS），整个文件不加修改地使用
-# 2. 在LINUX PUB SERVER上，提取服务器标记之间的内容
-# need proxy as well in lab?
-TITLEBAR='\[\033]0;\u@\h $(hostname -I) \w\007\]'
-export PS1="${TITLEBAR}\n[\u \[\033[0;33m\]\h \[\033[1;34m\]\w\[\033[0m\]]\$ "
-fi
-
-# below are shared by server and PC
-
-if [ "$OS" != "Windows_NT" ]; then
-# no need to set proxy on windows laptop
-export http_proxy="http://child-prc.intel.com:913"
-export https_proxy="http://child-prc.intel.com:913"
-export ftp_proxy="ftp://child-prc.intel.com:913/"
-#export no_proxy='localhost, 127.0.0.1, intel.com, .intel.com'
 fi
 
 # history
