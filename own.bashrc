@@ -77,6 +77,7 @@ fi
 # history
 # HISTCONTROL=ignoreboth
 unset HISTCONTROL
+export HISTIGNORE="ls:ll:pwd"
 shopt -s histappend     # append to history, don't overwrite it
 export HISTSIZE=1000    # default is 1000
 export HISTFILESIZE=2000
@@ -108,6 +109,8 @@ alias h='history 20'
 #alias hh='history -a; history -c; history -r; history' # full history
 #alias hh='history -c; history -r; history' # full history
 alias hh='history' # full history
+alias nohist='unset PROMPT_COMMAND; export HISTSIZE=0'
+alias offhist='nohist'  # turn off history
 alias v='vim'
 alias t='type'
 alias what='type'
