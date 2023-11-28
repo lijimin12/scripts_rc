@@ -373,6 +373,21 @@ check_trailing_comments () {
 	# sed -n  -e  '/[^[:space:]]\s\+#\s.*$/ p' own.bashrc
 }
 
+
+# print history related settings
+printhist () {
+    echo "HISTFILE: $HISTFILE"
+    echo "HISTSIZE: $HISTSIZE"
+    echo "HISTFILESIZE: $HISTFILESIZE"
+    echo "HISTTIMEFORMAT: $HISTTIMEFORMAT"
+    echo "HISTCONTROL: $HISTCONTROL"
+    echo "HISTIGNORE: $HISTIGNORE"
+    shopt histappend
+    shopt histreedit
+    shopt histverify
+}
+
+
 # as a notice to user
 echo 'alias/function(s):' 'f', 'g', 'mkcd', 'rmp', 'ca FILENAME LINENUMBER CONTEXT' 
 
