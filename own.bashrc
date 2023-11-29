@@ -31,6 +31,8 @@ export http_proxy="http://child-prc.intel.com:913"
 export https_proxy="http://child-prc.intel.com:913"
 export ftp_proxy="ftp://child-prc.intel.com:913/"
 #export no_proxy='localhost, 127.0.0.1, intel.com, .intel.com'
+#export http_proxy="http://proxy-prc.intel.com:912"
+#export https_proxy="http://proxy-prc.intel.com:912"
 fi
 
 if [ "$OS" != "Windows_NT" ]; then
@@ -412,6 +414,8 @@ if [ "$OS" != "Windows_NT" ]; then
 
 # NOTE: ctl-a + ctl-x to quit picocom
 alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
+
+# export LC_ALL=en_US.UTF-8
 
 # to take most likely needed options
 # human readable

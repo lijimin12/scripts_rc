@@ -62,7 +62,9 @@ function mg ()
         return; 
     fi
     # set -x
-    g -nr --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w $* /c/x /c/my/tech /c/codes/Jimin-Z8
+    g -nr --include="*.md" \
+    --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w --exclude-dir=GPU --exclude-dir=Intel_tools --exclude-dir=RDC --exclude-dir=_downloaded \
+    $* /c/x /c/my/tech /c/codes/Jimin-Z8
     # set +x
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
