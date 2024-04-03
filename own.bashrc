@@ -90,7 +90,8 @@ export HISTFILESIZE=2000
 #export HISTTIMEFORMAT="%m/%d %T `who am i` | "
 export HISTTIMEFORMAT="%m/%d %T "
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-export PROMPT_COMMAND="history -a && history -c && history -r; $PROMPT_COMMAND"
+#export PROMPT_COMMAND="history -a && history -c && history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a && history -c && history -r" # not include the origin one to avoid duplication in case of screen
 # export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND" not work
 # NOTE: `history -c` would look like not working, as PROMPT_COMMAND refills the history buffer from HISTFILE
 
@@ -141,8 +142,10 @@ alias paths="printenv PATH | sed -e 's/[Cc]:/\\\\C/g' | sed -e 's/:/\n/g'"
 alias ldpath="printenv LD_LIBRARY_PATH | tr ':' '\n'"
 
 # human readable
+alias cp='cp -v'    # verbose
 alias free='free -h'
 alias df='df -Th'
+alias iostat='iostat -d -h' # only blk devices, and in human friendly output format
 # time-stamp
 alias dmesg='sudo dmesg -T'
 alias dmsg='dmesg'
@@ -150,6 +153,9 @@ alias dmsgerr='dmesg --level=err'
 alias derr=dmsgerr
 alias where='whereis'
 alias du1='du -h --max-depth=1 | sort -rh'
+alias cpuid='cpuid -1'  # first logical cpu core
+alias ln='ln -s'    # soft link
+alias term='echo $TERM' # sometimes, like to check if it's screen
 
 # turn off bash bell
 bind 'set bell-style none'
@@ -181,7 +187,8 @@ alias l.f="ls -dl .* | grep -E '^-|^l' | awk '{print \$9,\$10}'"
 alias l.d="ls -dl .* | grep -E '^d|^l' | awk '{print \$9,\$10}'"
 
 # grep aliases
-alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
+#alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
+alias grep='grep -I --exclude-dir=".*" --color=auto'
 # alias grep='grep -I --color=auto'
 alias g='grep -nr -i -s'
 # -s, --no-messages
@@ -202,9 +209,10 @@ alias pg='g -nr --include="*.py" '
 #alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
 # linux kernel source grep = cg + excluding some folders
 # all archs except x86 excluded
-alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,hexagon,ia64,loongarch,m68k,microblaze,mips,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
+alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,h8300,hexagon,ia64,loongarch,m68k,microblaze,mips,nds32,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
 # linux kernel grep
 # use $* instead of $1 to support 'lgg -w pattern'
+# seems work in Linux, but not in gitbash
 lgg() {
 
     if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
@@ -387,6 +395,26 @@ printhist () {
     shopt histappend
     shopt histreedit
     shopt histverify
+}
+
+
+# check if there's own files
+# check_own_files ~
+# TODO: improve it
+check_own_files () {
+	if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
+        echo "Usage: $FUNCNAME HOMEDIR";
+        return;
+    fi
+
+    pushd $1
+
+    ls -A
+    for dir in Desktop Documents Downloads Music Pictures Public snap Templates Videos ; do
+        ls -l $dir
+    done
+
+    popd
 }
 
 

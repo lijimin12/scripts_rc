@@ -1,6 +1,6 @@
 # scripts
 Jimin-Z8
-Jimin.Li@intel.com my own scripts
+Jimin.Li@intel.com my own scripts and settings
 
 .bashrc
 .vimrc
