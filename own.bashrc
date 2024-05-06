@@ -27,9 +27,11 @@
 
 if [ "$OS" != "Windows_NT" ]; then
 # no need to set proxy on windows laptop
-export http_proxy="http://child-prc.intel.com:913"
-export https_proxy="http://child-prc.intel.com:913"
-export ftp_proxy="ftp://child-prc.intel.com:913/"
+#export http_proxy="http://child-prc.intel.com:913"
+#export https_proxy="http://child-prc.intel.com:913"
+#export ftp_proxy="ftp://child-prc.intel.com:913"
+# NOTE: proxy setting moved to /etc/environment
+:
 #export no_proxy='localhost, 127.0.0.1, intel.com, .intel.com'
 #export http_proxy="http://proxy-prc.intel.com:912"
 #export https_proxy="http://proxy-prc.intel.com:912"
@@ -156,6 +158,9 @@ alias du1='du -h --max-depth=1 | sort -rh'
 alias cpuid='cpuid -1'  # first logical cpu core
 alias ln='ln -s'    # soft link
 alias term='echo $TERM' # sometimes, like to check if it's screen
+# all of ttyX, gnome-terminal, sshd 
+alias shells='pstree -pT | grep -A 1 -nw -e sshd -e gnome-terminal -e login -e screen'
+alias shs='shells'
 
 # turn off bash bell
 bind 'set bell-style none'
@@ -185,6 +190,8 @@ alias llsz='llsize'
 alias l.='ls -d .*'
 alias l.f="ls -dl .* | grep -E '^-|^l' | awk '{print \$9,\$10}'"
 alias l.d="ls -dl .* | grep -E '^d|^l' | awk '{print \$9,\$10}'"
+# exclude Desktop etc.
+alias lsown="ls -F | sed -e '/Desktop/d' -e '/Documents/d' -e '/Downloads/d' -e '/Music/d' -e '/Pictures/d' -e '/Public/d' -e '/Templates/d' -e '/Videos/d' -e '/snap/d'"
 
 # grep aliases
 #alias grep='grep -I --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir=".repo" --color=auto'
@@ -229,6 +236,15 @@ lgg() {
     grep -nr --include={"*.c","*.S","*.h"} --exclude-dir={"sound","fs","drivers","Documentation","arch","crypto"} $* . ./arch/x86
 }
 
+# linux grep struct definition, e.g. lgstruct platform_driver
+lgstruct() {
+    if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
+        echo "Usage: $FUNCNAME PATTERN"
+        return
+    fi
+    grep -nr --include={"*.c","*.S","*.h"} -w "struct\s${1}\s\+{"
+}
+
 # exlude 'build'
 alias gnb='grep --exclude-dir="build"'
 # grep: warning: GREP_OPTIONS is deprecated; please use an alias or script
@@ -246,7 +262,9 @@ alias vv='vimm.py'
 if [ "$OS" != "Windows_NT" ]; then
 # preserve environment
 # alias sudo="sudo -E "
-alias sudo='sudo -E'
+# alias sudo='sudo -E'
+# no need to carry environemnt to sudo. If there are some env setting needed by sudo, put it in /etc/environment
+:
 fi
 
 
@@ -313,6 +331,8 @@ mkcd() {
 
 # alias rmp='pwd=`pwd` && ! test -L "$pwd" && cd .. && rm -rfv "$pwd" || { test -L "$pwd" && cd .. && unlink "${pwd}" && echo unlinked "$pwd". ; }  || echo failed'
 alias rmp='pwd=`pwd` && ! test -L "$pwd" || { test -L "$pwd" && echo "failed, $pwd is a symbol link" ; false; } && cd .. && rm -rfv "$pwd" '
+
+alias rm.='rmp'
 
 # remove current dir forcely
 rmpwd() {
@@ -409,7 +429,13 @@ check_own_files () {
 
     pushd $1
 
-    ls -A
+    # ls -A
+    # new unhidden files and folder
+    ls -1F | grep -v -e Desktop  -e Documents -e Downloads -e Music -e Pictures -e Public -e Templates -e Videos -e snap
+
+    # hidden files and folders
+    ls -dF1 .*
+
     for dir in Desktop Documents Downloads Music Pictures Public snap Templates Videos ; do
         ls -l $dir
     done
@@ -447,7 +473,9 @@ alias ttyUSB='picocom -b 115200 /dev/ttyUSB1'
 
 # to take most likely needed options
 # human readable
-alias lsblk='lsblk --fs'
+alias lsscsi='lsscsi -s'    # -s means size
+alias lsusb='lsusb -vt'     # verbose, tree
+alias lsblk='lsblk --fs'    # file system
 alias ss='ss -4ap'  # ipv4, all, process
 alias pgrep='pgrep -ia' # grep process via name
 alias lsb_release='lsb_release -a'

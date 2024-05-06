@@ -186,5 +186,7 @@ if (command == ""):
     usage()
     sys.exit(0)
 
-print("subprocess calling {}".format(command))
+print("subprocess call: {}".format(command))
 subprocess.call(command, shell=True)
+#print("subprocess Popen: {}".format(command))
+#subprocess.Popen(command)

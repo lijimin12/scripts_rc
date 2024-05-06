@@ -113,7 +113,21 @@ function mgsection ()
     #mg '^#' | grep -i $*
     mg '^#\+\s' | grep -i $*
 }
+alias mgheader='mgsection'
 
+function mgtags ()
+{
+    # copied, possible edit needed
+	if [ $# -eq 0 ] || [ "$1" = '-h' ]; then 
+        echo "Usage: $FUNCNAME ARGS"; 
+        echo -e "e.g.\t$FUNCNAME PATTERN";
+        echo -e "e.g.\t$FUNCNAME -w PATTERN";
+        echo "DONT include blank space in PATTERN, user \s instead, such as mg 'foo\s\+bar', mg 'ip\scommand', double-quote ok as well"
+        return; 
+    fi
+
+    mg '^tags' | grep -i $*
+}
 
 # find RDC
 frdc ()
@@ -193,6 +207,7 @@ alias xnotes='cd /c/x/my_x_notes'
 alias lk='cd /c/codes/linux-6.6/linux-6.6_unzipped'
 alias lk515='cd /c/codes/linux-5.15-unzipped/linux-5.15'
 alias lk5='lk515'
+
 
 # gitbash special, invalid on Linux
 #alias npp='/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe'
