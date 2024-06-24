@@ -102,6 +102,7 @@ export PROMPT_COMMAND="history -a && history -c && history -r" # not include the
 # dir
 alias ..='cd ..'
 alias ...='cd ../..'
+alias -- -='cd -'   # - to 'cd -'
 # alias b='cd -'  # go back
 alias p='pwd'
 
@@ -133,8 +134,10 @@ alias clr="clear && printf '\033[3J'"
 
 # word count dos '\r'
 alias wcdos="grep -cU $'\r'"
+alias chkdos=wcdos
 # word count tab '\t'
 alias wctab="grep -cU $'\t'"
+alias chktab=wctab
 
 alias path="printenv PATH | tr ':' '\n'"
 # alias path="printenv PATH | tr : '\n'"
@@ -216,7 +219,26 @@ alias pg='g -nr --include="*.py" '
 #alias tg='g -nr --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" --exclude-dir=w '
 # linux kernel source grep = cg + excluding some folders
 # all archs except x86 excluded
-alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"sound","fs","drivers","Documentation","crypto"} --exclude-dir={alpha,arc,arm,arm64,csky,h8300,hexagon,ia64,loongarch,m68k,microblaze,mips,nds32,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
+# excluded dirs are sorted by size, with drivers take more than half the whole linux kernel source codes
+# linux v6.6
+# 1.5G    .
+# 976M    ./drivers
+# 143M    ./arch
+# 68M     ./tools
+# 68M     ./Documentation
+# 53M     ./include
+# 50M     ./sound
+# 47M     ./fs
+# 36M     ./net
+# 14M     ./kernel
+# 8.1M    ./lib
+# 5.4M    ./mm
+# 3.9M    ./crypto
+# 3.8M    ./scripts
+# 3.4M    ./security
+alias lg='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"tools","Documentation","sound","fs","crypto","scripts","security"} --exclude-dir={alpha,arc,arm,arm64,csky,h8300,hexagon,ia64,loongarch,m68k,microblaze,mips,nds32,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
+# exclude drivers
+alias lgndrv='g -nr --include="*.c" --include="*.S" --include="*.h" --exclude-dir={"drivers","tools","Documentation","sound","fs","crypto","scripts","security"} --exclude-dir={alpha,arc,arm,arm64,csky,h8300,hexagon,ia64,loongarch,m68k,microblaze,mips,nds32,nios2,openrisc,parisc,powerpc,riscv,s390,sh,sparc,um,xtensa} '
 # linux kernel grep
 # use $* instead of $1 to support 'lgg -w pattern'
 # seems work in Linux, but not in gitbash
@@ -249,6 +271,17 @@ lgstruct() {
 alias gnb='grep --exclude-dir="build"'
 # grep: warning: GREP_OPTIONS is deprecated; please use an alias or script
 # export GREP_OPTIONS="--exclude-dir=\.git --exclude-dir=\.svn"
+
+
+# excluding middle path name matching
+locate() {
+    if [ $# -eq 0 ] || [ "$1" = '-h' ] ; then
+        echo "Usage: $FUNCNAME PATTERN"
+		echo "  e.g. locate intel-i915-dkms"
+        return
+    fi
+    /usr/bin/locate ${1} | /usr/bin/grep --color=auto ${1}'[^/]*$'
+}
 
 # git
 alias gitnp='git --no-pager'

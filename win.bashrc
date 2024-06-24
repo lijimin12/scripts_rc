@@ -66,7 +66,7 @@ function mg ()
     # set -x
     g -nr --include="*.md" --include="*.txt" \
     --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w_mchp --exclude-dir=GPU --exclude-dir=Intel_tools --exclude-dir=RDC --exclude-dir=_downloaded --exclude-dir=Linux_Kernel --exclude-dir=Programming_Language \
-    $* /c/x /c/my/tech /c/codes/Jimin-Z8
+    $* /c/x /c/my/tech /c/my/resource /c/codes/Jimin-Z8
     # set +x
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
@@ -88,7 +88,7 @@ function mdg ()
     # set -x
     g -nr --include="*.md" \
     --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w_mchp --exclude-dir=GPU --exclude-dir=Intel_tools --exclude-dir=RDC --exclude-dir=_downloaded --exclude-dir=Linux_Kernel --exclude-dir=Programming_Language \
-    $* /c/x /c/my/tech /c/codes/Jimin-Z8
+    $* /c/x /c/my/tech /c/my/resource /c/codes/Jimin-Z8
     # set +x
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
@@ -122,7 +122,8 @@ function mgtags ()
         echo "Usage: $FUNCNAME ARGS"; 
         echo -e "e.g.\t$FUNCNAME PATTERN";
         echo -e "e.g.\t$FUNCNAME -w PATTERN";
-        echo "DONT include blank space in PATTERN, user \s instead, such as mg 'foo\s\+bar', mg 'ip\scommand', double-quote ok as well"
+        echo "DONT include blank space in PATTERN, user \s instead, such as mg 'foo\s\+bar', mg 'ip\scommand'"
+        echo '  double-quote ok as well, e.g. mgtags "disk\sspace"'
         return; 
     fi
 

@@ -53,6 +53,7 @@ def handle_an_article(file_name):
     #file_name = "NYT_01.txt"
     #file_name_new = "new " + file_name
     file_name_new = file_name
+    line_count = 0
     with codecs.open(file_name_new, 'w+', 'utf-8') as outstream:
         with codecs.open(old_file_name, 'r+', 'utf-8') as instream:
             for line in instream.readlines():
@@ -69,10 +70,16 @@ def handle_an_article(file_name):
                     continue
                 if (len(line)):
                     #outstream.write(str(len(line)))
-                    # 超过一定长度的行，添加空行
-                    if (len(line) > 40) : 
+                    # 超过一定长度的行，在前面添加空行
+                    # 20 and 10 are choosen w/o a hard reason
+                    if (len(line) > 20) : 
                         outstream.write('\n')
+                    elif (line_count > 10):
+                        # short lines in middle of article treated as section headers
+                        outstream.write('\n')
+                        outstream.write('## \n')
                     outstream.write(line+'\n')
+                    line_count += 1
                 #if is_chinese(line[0]):
                     #outstream.write("yes\n")
                     #pass
