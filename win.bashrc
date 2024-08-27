@@ -111,7 +111,8 @@ function mgsection ()
     fi
 
     #mg '^#' | grep -i $*
-    mg '^#\+\s' | grep -i $*
+    # NOTE: to avoid mistreat root prompt # as the section header, just search section header2,3,4..., not header1
+    mg '^##\+\s' | grep -i $*
 }
 alias mgheader='mgsection'
 
@@ -193,9 +194,39 @@ wf ()
         return; 
     fi
     # find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
-    find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print
+    find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Desktop/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print
 }
 
+# my find. find files in my folders
+myf ()
+{
+    if [ "$1" = '-h' ] || [ $# -ne 1 ] ; then 
+        echo "Usage: $FUNCNAME FILENAME_PATTERN"; 
+        echo "Example: $FUNCTION sub_filename";
+        echo "Example: $FUNCTION sub_filename.pdf";
+        return; 
+    fi
+    b=${1%.*}
+    if [ "${b}" = "${1}" ] ; then
+        # no extension
+        b=${b%\*}
+        b=${b#\*}
+        pattern="*${b}*"
+    else
+        e=${1#*.}
+        b=${b%\*}
+        b=${b#\*}
+        pattern="*$b*.$e"
+    fi
+    # debug purpose
+    # echo "b:$b"
+    # echo "e:$e"
+    # echo "pattern: $pattern"
+
+    # find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
+    find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Desktop/ \
+        -iname ${pattern} -not -path '*/.*' -print
+}
 
 # cd certain folder on Windows Laptop
 alias hub='cd /c/codes/Jimin-Z8/'
@@ -240,7 +271,7 @@ ex () {
 alias ipa='ipconfig | grep -B 5 -i ipv4'
 
 # as a notice to user
-echo 'alias/function(s):' 'ex', 'wf FILENAME', 'mf FILENAME', 'mftoday', 'mg STRING', 'mgsection SECTION_NAME', 'cg/mdg', 'rdcf RDC#', 'rdco RDC#', 'vv|vs|np' 
+echo 'alias/function(s):' 'ex', 'wf FILENAME', 'myf FILENAME', 'mf FILENAME', 'mftoday', 'mg STRING', 'mgsection SECTION_NAME', 'cg/mdg', 'rdcf RDC#', 'rdco RDC#', 'vv|vs|np' 
 
 #cd /c/x
 # use instead "C:\Program Files\Git\git-bash.exe" --cd="C:\x"

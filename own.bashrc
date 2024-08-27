@@ -105,6 +105,9 @@ alias ...='cd ../..'
 alias -- -='cd -'   # - to 'cd -'
 # alias b='cd -'  # go back
 alias p='pwd'
+alias pd='pushd'
+alias pop='popd'
+alias dirs='dirs -p'
 
 #alias h='history'
 #alias h='history -a; history -c; history -r; history | tail -20'
@@ -114,7 +117,8 @@ alias p='pwd'
 alias h='history 20'
 #alias hh='history -a; history -c; history -r; history' # full history
 #alias hh='history -c; history -r; history' # full history
-alias hh='history' # full history
+alias hh='history 100'
+alias hhh='history' # full history
 alias nohist='unset PROMPT_COMMAND; export HISTSIZE=0'
 alias offhist='nohist'  # turn off history
 alias v='vim'
@@ -165,7 +169,7 @@ alias term='echo $TERM' # sometimes, like to check if it's screen
 alias shells='pstree -pT | grep -A 1 -nw -e sshd -e gnome-terminal -e login -e screen'
 alias shs='shells'
 
-# turn off bash bell
+# turn off bash bell beep
 bind 'set bell-style none'
 
 # ctrl-d to delete word
@@ -182,8 +186,10 @@ alias ll='ls -AlFh' # -A vs. -a
 alias la='ls -A'
 #alias lf="ls -l | grep -vE '^d|^l' | awk '{print $9}'"
 # for links, $10 would be "->"
-alias ld="ls -l | grep -E '^d|^l' | awk '{print \$9,\$10}' | column"     # list directories
-alias lf="ls -l | grep -E '^-|^l' | awk '{print \$9,\$10}' | column"     # list regular files
+alias ld='ls -d */'     # list only directories
+alias lf='ls -p | grep -v ./ | xargs ls --color=auto'   # list only regular files
+# alias ld="ls -l | grep -E '^d|^l' | awk '{print \$9,\$10}' | column"     # list only directories
+# alias lf="ls -l | grep -E '^-|^l' | awk '{print \$9,\$10}' | column"     # list only regular files
 # reversely time sorted
 alias llrt='ll -rt'
 # sort by file size
@@ -191,9 +197,11 @@ alias llsize='ll -rSh'
 alias llsz='llsize'
 # list only .* hidden files and or directories
 alias l.='ls -d .*'
-alias l.f="ls -dl .* | grep -E '^-|^l' | awk '{print \$9,\$10}'"
-alias l.d="ls -dl .* | grep -E '^d|^l' | awk '{print \$9,\$10}'"
-# exclude Desktop etc.
+alias l.d='ls -d .*/'
+alias l.f='ls -pd .* | grep -v ./ | xargs ls --color=auto'
+# alias l.d="ls -dl .* | grep -E '^d|^l' | awk '{print \$9,\$10}'"
+##alias l.f="ls -dl .* | grep -E '^-|^l' | awk '{print \$9,\$10}'"
+# exclude Desktop Documents etc.
 alias lsown="ls -F | sed -e '/Desktop/d' -e '/Documents/d' -e '/Downloads/d' -e '/Music/d' -e '/Pictures/d' -e '/Public/d' -e '/Templates/d' -e '/Videos/d' -e '/snap/d'"
 
 # grep aliases
@@ -282,6 +290,8 @@ locate() {
     fi
     /usr/bin/locate ${1} | /usr/bin/grep --color=auto ${1}'[^/]*$'
 }
+alias locatef='locate'  # locate file, excluding folder
+alias locateb='locate -b'   # basename
 
 # git
 alias gitnp='git --no-pager'
