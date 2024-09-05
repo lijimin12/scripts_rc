@@ -17,6 +17,7 @@ set hls
 " cannot use set background! to switch background setting
 set background=dark
 "set background=light
+"proper background setting may differ on terminals
 
 set tabstop=4 shiftwidth=4 expandtab
 "c indent?
