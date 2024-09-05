@@ -486,6 +486,14 @@ check_own_files () {
     popd
 }
 
+status_repos () {
+    for dir in */ ; do (cd ${dir}; basename `pwd`; git status -sb; cd ..) ; done
+}
+
+sync_repos () {
+    # for repo in Computer  Linux  notes pix_markdown onenote geo ; do (cd $repo; basename `pwd` ; git pull) ; done
+    for repo in */ ; do (cd $repo; basename `pwd` ; git pull) ; done
+}
 
 # as a notice to user
 echo 'alias/function(s):' 'f', 'g', 'mkcd', 'rmp', 'ca FILENAME LINENUMBER CONTEXT' 
