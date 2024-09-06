@@ -1,6 +1,6 @@
 # This is my own bashrc shared by my Linux and Windows, and public server
 # ~/own.bashrc
-# make ~/own.bashrc a symbol link to my downloaded Jimin-Z8 repo.
+# make ~/own.bashrc a symbol link to my downloaded Jimin-hub repo.
 
 # if [ -f ~/own.bashrc ]; then
 #   . ~/own.bashrc [extra]
@@ -549,7 +549,7 @@ if [ "$1" = "full" ] ; then
     #echo "full own.bashrc required"
 elif true ; then
 	# echo "my github standard own.bashrc sourced"
-    echo "standard Jimin-Z8\own.bashrc sourced"
+    echo "standard Jimin-hub\own.bashrc sourced"
 	return
 fi
 
@@ -578,4 +578,4 @@ alias lsb_release='lsb_release -a'
 fi
 
 
-echo "full Jimin-Z8\own.bashrc sourced"
+echo "full Jimin-hub\own.bashrc sourced"
