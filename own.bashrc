@@ -379,6 +379,7 @@ alias rm.='rmp'
 
 echo_color () {
     if [ $# -ne 2 ] ; then
+        echo "wrong number of function parameters"
         echo "Usage: $FUNCNAME COLOR MESSAGE"
         echo "COLOR: red, green, yellow ..."
         return
@@ -396,7 +397,7 @@ echo_color () {
         yellow)
             echo -e "\033[1;33m"${message}"\033[0m"
             ;;
-        *) echo "unsupported COLORNAME"
+        *) echo "unsupported COLORNAME $color"
     esac
 }
 
@@ -405,7 +406,7 @@ echo_yellow () {
         echo "Usage: $FUNCNAME MESSAGE"
         return
     fi
-    echo_color yellow $1
+    echo_color yellow "$1"
 }
 
 # remove current dir forcely
