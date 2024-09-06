@@ -377,8 +377,45 @@ alias rmp='pwd=`pwd` && ! test -L "$pwd" || { test -L "$pwd" && echo "failed, $p
 
 alias rm.='rmp'
 
+echo_color () {
+    if [ $# -ne 2 ] ; then
+        echo "Usage: $FUNCNAME COLOR MESSAGE"
+        echo "COLOR: red, green, yellow ..."
+        return
+    fi
+
+    color=$1
+    message=$2
+    case $color in
+        red)
+            echo -e "\033[1;31m"${message}"\033[0m"
+            ;;
+        green)
+            echo -e "\033[1;32m"${message}"\033[0m"
+            ;;
+        yellow)
+            echo -e "\033[1;33m"${message}"\033[0m"
+            ;;
+        *) echo "unsupported COLORNAME"
+    esac
+}
+
+echo_yellow () {
+    if [ $# -ne 1 ] ; then
+        echo "Usage: $FUNCNAME MESSAGE"
+        return
+    fi
+    echo_color yellow $1
+}
+
 # remove current dir forcely
 rmpwd() {
+    if [ $# -ne 0 ] ; then
+        echo "Usage: $FUNCNAME"
+        echo "remove pwd"
+        return
+    fi
+
     pwd=$(pwd)
     if [ -d $pwd ] && [ ! -L $pwd ]; then
 
@@ -387,7 +424,7 @@ rmpwd() {
             cd .. && rmdir -v $pwd
         else
             echo -e "remove" "\033[1;33m"non-empty"\033[0m" $pwd
-            cd .. && rm -rfv $pwd
+            cd .. && rm -rfv $pwd && echo_yellow "$pwd removed"
         fi
     fi
 
@@ -487,13 +524,15 @@ check_own_files () {
 }
 
 status_repos () {
-    for dir in */ ; do (cd ${dir}; basename `pwd`; git status -sb; cd ..) ; done
+    for dir in */ ; do (cd ${dir}; echo ""; basename `pwd`; git status -sb; cd ..) ; done
 }
 
 sync_repos () {
     # for repo in Computer  Linux  notes pix_markdown onenote geo ; do (cd $repo; basename `pwd` ; git pull) ; done
-    for repo in */ ; do (cd $repo; basename `pwd` ; git pull) ; done
+    for repo in */ ; do (cd $repo; echo ""; basename `pwd` ; git pull) ; done
 }
+alias repos_status='status_repos'
+alias repos_sync='sync_repos'
 
 # as a notice to user
 echo 'alias/function(s):' 'f', 'g', 'mkcd', 'rmp', 'ca FILENAME LINENUMBER CONTEXT' 
