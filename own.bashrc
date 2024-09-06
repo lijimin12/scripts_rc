@@ -525,12 +525,13 @@ check_own_files () {
 }
 
 status_repos () {
-    for dir in */ ; do (cd ${dir}; echo ""; basename `pwd`; git status -sb; cd ..) ; done
+    # for repodir in */ ; do (cd ${repodir}; echo ""; basename `pwd`; git status -sb; cd ..) ; done
+    for repodir in */ ; do (cd ${repodir}; echo ""; x=$(basename `pwd`); echo "$x"; if [ "$x" == "${x#_}" ]; then git status -sb; fi) ; done
 }
 
 sync_repos () {
     # for repo in Computer  Linux  notes pix_markdown onenote geo ; do (cd $repo; basename `pwd` ; git pull) ; done
-    for repo in */ ; do (cd $repo; echo ""; basename `pwd` ; git pull) ; done
+    for repodir in */ ; do (cd $repodir; echo ""; basename `pwd` ; git pull) ; done
 }
 alias repos_status='status_repos'
 alias repos_sync='sync_repos'
