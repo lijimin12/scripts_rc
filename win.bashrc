@@ -34,18 +34,18 @@ mf ()
     fi
     # ${1%.md} is to remove file extention name
     # find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
-    find /c/my /c/codes/Jimin-Z8 /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print
+    find /c/my /c/codes/Jimin-hub /c/x -iname '*'${1%.md}'*.md' -not -path '*/.*' -print
 }
 alias fm=mf
 
 # find .md and .txt files modified in last 1 day
-alias mf1='find /c/my /c/codes/Jimin-Z8 /c/x /c/users/jiminli/Desktop /c/users/jiminli/Downloads -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -1 -exec stat --printf="%y %n\n" {} \; | sort'
+alias mf1='find /c/my /c/codes/Jimin-hub /c/x /c/users/jiminli/Desktop /c/users/jiminli/Downloads -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -1 -exec stat --printf="%y %n\n" {} \; | sort'
 # last 3 days
-alias mf3='find /c/my /c/codes/Jimin-Z8 /c/x /c/users/jiminli/Desktop /c/users/jiminli/Downloads -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -3 -exec stat --printf="%y %n\n" {} \; | sort'
+alias mf3='find /c/my /c/codes/Jimin-hub /c/x /c/users/jiminli/Desktop /c/users/jiminli/Downloads -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -3 -exec stat --printf="%y %n\n" {} \; | sort'
 # last 1 week (7 days)
-alias mf7='find /c/my /c/codes/Jimin-Z8 /c/x /c/users/jiminli/Desktop /c/users/jiminli/Downloads -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -7 -exec stat --printf="%y %n\n" {} \; | sort'
+alias mf7='find /c/my /c/codes/Jimin-hub /c/x /c/users/jiminli/Desktop /c/users/jiminli/Downloads -type f \( -iname "*.md" -o -iname "*.txt" \) -mtime -7 -exec stat --printf="%y %n\n" {} \; | sort'
 # current workday (12 hours)
-alias mftoday='find /c/my /c/codes/Jimin-Z8 /c/x /c/users/jiminli/Desktop /c/users/jiminli/Downloads -type f \( -iname "*.md" -o -iname "*.txt" \) -mmin -720 -exec stat --printf="%y %n\n" {} \; | sort'
+alias mftoday='find /c/my /c/codes/Jimin-hub /c/x /c/users/jiminli/Desktop /c/users/jiminli/Downloads -type f \( -iname "*.md" -o -iname "*.txt" \) -mmin -720 -exec stat --printf="%y %n\n" {} \; | sort'
 
 
 # grep in .md markdown notes, or grep on my own notes
@@ -66,7 +66,7 @@ function mg ()
     # set -x
     g -nr --include="*.md" --include="*.txt" \
     --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w_mchp --exclude-dir=GPU --exclude-dir=Intel_tools --exclude-dir=RDC --exclude-dir=_downloaded --exclude-dir=Linux_Kernel --exclude-dir=Programming_Language \
-    $* /c/x /c/my/tech /c/my/resource /c/codes/Jimin-Z8
+    $* /c/x /c/my/tech /c/my/resource /c/codes/Jimin-hub
     # set +x
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
@@ -88,7 +88,7 @@ function mdg ()
     # set -x
     g -nr --include="*.md" \
     --exclude-dir="_NYTimes" --exclude-dir=bin_tools --exclude-dir=w_mchp --exclude-dir=GPU --exclude-dir=Intel_tools --exclude-dir=RDC --exclude-dir=_downloaded --exclude-dir=Linux_Kernel --exclude-dir=Programming_Language \
-    $* /c/x /c/my/tech /c/my/resource /c/codes/Jimin-Z8
+    $* /c/x /c/my/tech /c/my/resource /c/codes/Jimin-hub
     # set +x
     #grep -I --color=auto -nr -i --include="*.txt" --include="*.md" --exclude-dir="_NYTimes" ${1} /c/my /c/codes/Jimin-Z8 /c/x
 }
@@ -193,8 +193,8 @@ wf ()
         echo "Usage: $FUNCNAME FILENAME_PATTERN"; 
         return; 
     fi
-    # find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
-    find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Desktop/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print
+    # find /c/my /c/codes/Jimin-hub /c/x $HOME/Downloads/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
+    find /c/my /c/codes/Jimin-hub /c/x $HOME/Downloads/ $HOME/Desktop/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print
 }
 
 # my find. find files in my folders
@@ -224,15 +224,12 @@ myf ()
     # echo "pattern: $pattern"
 
     # find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Screenshots/ $HOME/Videos/ -iname '*'${1}'*' -not -path '*/.*' -print | tee /dev/stderr | head -1 | clip
-    find /c/my /c/codes/Jimin-Z8 /c/x $HOME/Downloads/ $HOME/Desktop/ \
+    find /c/my /c/codes/Jimin-hub /c/x $HOME/Downloads/ $HOME/Desktop/ \
         -iname ${pattern} -not -path '*/.*' -print
 }
 
 # cd certain folder on Windows Laptop
-alias hub='cd /c/codes/Jimin-Z8/'
-alias z8='hub'
-alias z8notes='cd /c/codes/Jimin-Z8/notes'
-alias z8scripts='cd /c/codes/Jimin-Z8/scripts'
+alias hub='cd /c/codes/Jimin-hub/'
 alias x='cd /c/x/'
 alias xnotes='cd /c/x/my_x_notes'
 # linux codes tree
@@ -244,13 +241,13 @@ alias lk5='lk515'
 # gitbash special, invalid on Linux
 #alias npp='/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe'
 #alias np='notepad'
-alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" "npp"'
+alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts\editor_wrapper.py" "npp"'
 #alias gvim='"C:\Program Files (x86)\Vim\vim90\gvim.exe"'
-alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" vim'
+alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts\editor_wrapper.py" vim'
 # gvim
-alias gv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" gvim'
+alias gv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts\editor_wrapper.py" gvim'
 # vs code
-alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-Z8\scripts\editor_wrapper.py" code'
+alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts\editor_wrapper.py" code'
 
 # alias ex='explorer'
 # ex '\c\x'
@@ -279,7 +276,7 @@ echo 'alias/function(s):' 'ex', 'wf FILENAME', 'myf FILENAME', 'mf FILENAME', 'm
 # .md shown in cyan color
 export LS_COLORS="$LS_COLORS:*.md=36"
 
-echo "Jimin-Z8\win.bashrc sourced"
+echo "Jimin-hub\win.bashrc sourced"
 
 # things put in windows ~/.bashrc
 # vim90 needs to be after $PATH
