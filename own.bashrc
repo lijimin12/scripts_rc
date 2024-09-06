@@ -526,7 +526,8 @@ check_own_files () {
 
 status_repos () {
     # for repodir in */ ; do (cd ${repodir}; echo ""; basename `pwd`; git status -sb; cd ..) ; done
-    for repodir in */ ; do (cd ${repodir}; echo ""; x=$(basename `pwd`); echo "$x"; if [ "$x" == "${x#_}" ]; then git status -sb; fi) ; done
+    # for repodir in */ ; do (cd ${repodir}; echo ""; x=$(basename `pwd`); echo "$x"; if [ "$x" == "${x#_}" ]; then git status -sb; fi) ; done
+    for repodir in */ ; do (cd ${repodir}; echo ""; x=$(basename `pwd`); echo "$x"; if [ "${x::1}" != "_" ]; then git status -sb; else echo "this folder skipped"; fi) ; done
 }
 
 sync_repos () {
