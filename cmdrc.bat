@@ -1,4 +1,3 @@
-
 :: USERPROFILE\bin\cmdrc.bat
 :: "call cmdrc.bat" or "call cmdrc", no matter pwd
 :: cannot be cmdrc.bat
