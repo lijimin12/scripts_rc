@@ -16,3 +16,5 @@
     proxy = http://proxy-prc.intel.com:912
 [advice]
     detachedHead = false
+[credential]
+    helper = store
