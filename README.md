@@ -1,3 +1,5 @@
+trying auto-sync to gitee
+
 # scripts
 Jimin-Z8
 Jimin.Li@intel.com my own scripts and settings
