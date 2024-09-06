@@ -1,4 +1,5 @@
 trying auto-sync to gitee
+would do auto-sync?
 
 # scripts
 Jimin-Z8
