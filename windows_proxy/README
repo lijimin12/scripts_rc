@@ -1,0 +1,5 @@
+win+r to open run pop-up window, and then:
+regedit /s c:\x\bin_tools\proxy_off.reg
+regedit /s c:\x\bin_tools\proxy_on.reg
+cmd.exe /c c:\x\bin_tools\proxy_status.bat
+

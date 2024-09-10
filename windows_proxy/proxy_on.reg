@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+
+"AutoConfigURL"=-
+"ProxyEnable"=dword:00000001
+"ProxyServer"="http://child-prc.intel.com:913"
+"ProxyOverride"="<local>"

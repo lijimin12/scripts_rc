@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+
+"AutoConfigURL"="http://wpad.intel.com/wpad.dat"
+"ProxyEnable"=dword:00000000
+"ProxyServer"="http://child-prc.intel.com:913"
+"ProxyOverride"="<local>"

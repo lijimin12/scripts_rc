@@ -241,13 +241,13 @@ alias lk5='lk515'
 # gitbash special, invalid on Linux
 #alias npp='/c/x/bin_tools/green/npp.7.8.bin.x64/notepad++.exe'
 #alias np='notepad'
-alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts\editor_wrapper.py" "npp"'
+alias np='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts_rc\editor_wrapper.py" "npp"'
 #alias gvim='"C:\Program Files (x86)\Vim\vim90\gvim.exe"'
-alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts\editor_wrapper.py" vim'
+alias vv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts_rc\editor_wrapper.py" vim'
 # gvim
-alias gv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts\editor_wrapper.py" gvim'
+alias gv='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts_rc\editor_wrapper.py" gvim'
 # vs code
-alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts\editor_wrapper.py" code'
+alias vs='"C:\Users\jiminli\AppData\Local\Programs\Python\Python38\python.exe" "C:\codes\Jimin-hub\scripts_rc\editor_wrapper.py" code'
 
 # alias ex='explorer'
 # ex '\c\x'
