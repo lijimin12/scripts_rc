@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # monitor ip addres change
 # NOTE: 
-# 1. this script is already in z8 github, don't make local change
+# 1. this script is already in my github, don't make local change
 # 2. for option#1, update IFNAME according to the host system
 # Steps:
 # 1. `sudo apt install mailutils`, and then send a trial email: echo hello | mail -s "subject" jimin.li@intel.com
