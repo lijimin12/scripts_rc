@@ -19,3 +19,58 @@
     detachedHead = false
 [credential]
     helper = store
+
+
+examples:
+$ cat ~/.gitconfig
+[http "https://github.com"]
+        proxy = http://proxy-shz.intel.com:912
+[http]
+        proxy = http://proxy-shz.intel.com:912
+[http "https://lfs.github.com"]
+        proxy = http://proxy-shz.intel.com:912
+[http "https://github-cloud.s3.amazonaws.com"]
+        proxy = http://proxy-shz.intel.com:912
+[http "https://github-cloud.githubusercontent.com"]
+        proxy = http://proxy-shz.intel.com:912
+[filter "lfs"]
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+        required = true
+[alias]
+    br = branch
+    ci = commit -a
+    cin = commit -a --allow-empty-message -m ''
+    st = status
+    co = checkout
+    sw = checkout
+    lg = log --name-status
+    rmt = remote
+    ps = push --progress -v
+
+[credential]
+#       useHttpPath = true
+[core]
+        longpaths = true
+        quotepath = false
+[user]
+    name = Li,Jimin
+    email = jimin.li@intel.com
+[credential "https://gitee.com"]
+        provider = generic
+[pull]
+        ff = only
+[includeIf "gitdir/i:C:/codes/Jimin-hub/"]
+    path = ~/.gitconfig-lijimin12
+
+jiminli@jiminli-mobl MINGW64 /c
+$ cat ~/.gitconfig
+.gitconfig            .gitconfig-lijimin12
+
+jiminli@jiminli-mobl MINGW64 /c
+$ cat ~/.gitconfig-lijimin12
+[user]
+        name = li.jimin
+        email = li.jimin@hotmail.com
+
