@@ -1,0 +1,31 @@
+#source "C:\codes\Jimin-Z8\scripts\own.bashrc" full
+source "C:\\codes\\Jimin-hub\\scripts_rc\\own.bashrc" 
+source "C:\\codes\\Jimin-hub\\scripts_rc\\win.bashrc"
+
+# vim90 needs to be after $PATH
+export PATH=/c/x/bin_tools/green/npp.7.8.bin.x64/:$PATH:"/c/Program Files (x86)/Vim/vim90/":"/c/Program Files (x86)/Foxit Software/Foxit PDF Reader":'C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\'
+
+#alias fox='"C:\Program Files (x86)\Foxit Software\Foxit PDF Reader\FoxitPDFReader.exe" '
+alias fox='"FoxitPDFReader.exe" '
+#alias acro='"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe"'
+alias acro='"AcroRd32.exe"'
+
+# after 'git push' to github, get beige do 'git pull'
+alias beigepull='ssh lijimin1@beige.sh.intel.com "cd /home/lijimin1/my_repo/scripts; git pull"'
+alias moro='ssh nex@nex-morocity.sh.intel.com'
+alias archer='ssh pae@pae-archercity.sh.intel.com'
+alias editvsmd='code "C:\Users\jiminli\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\markdown-basics\language-configuration.json"'
+vsmd () {
+    # can run twice w/o harm
+    pushd "C:\Users\jiminli\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\markdown-basics"
+    set -x
+    sed -i 's/,{"open":"`","close":"`"}//' language-configuration.json
+    sed -i 's/,{"open":"```","close":"```"}//' language-configuration.json
+    set +x
+    popd
+}
+alias ub='cd /c/codes/u-boot'
+alias sl='cd /c/codes/slimbootloader'
+alias tmp='cd /c/x/tmp'
+
+ complete -W 'beige xeon6 rpl' ssh

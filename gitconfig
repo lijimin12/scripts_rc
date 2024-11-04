@@ -1,6 +1,7 @@
 [alias]
     br = branch
     ci = commit -a
+    cin = commit -a --allow-empty-message -m ''
     st = status
     co = checkout
     sw = checkout
